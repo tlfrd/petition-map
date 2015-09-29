@@ -72,12 +72,19 @@ function get_url_variables() {
 function load_mp_data() {
     $.getJSON("json/mps/constituency_party_ons.json", function (data) {
         mp_data = data;
-        $.each(mp_data, function (index, item) {
-            var dropdown_text = item.constituency;
-            $('#constituency').append(
-                $('<option></option>').val(index).html(dropdown_text)
-            );
-        });
+        var sorted_mp_data = []
+        for (a in data) {
+            sorted_mp_data.push({id: a, text: data[a].constituency}) };
+        sorted_mp_data.sort(function(a, b) {
+            return a.text.localeCompare(b.text);
+        }),
+        $.each(sorted_mp_data,
+            function (_idx, item) {
+                $('#constituency').append(
+                    $('<option></option>').val(item.id).html(item.text)
+                );
+            }
+        );
     });
 }
 
