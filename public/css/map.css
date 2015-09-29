@@ -39,11 +39,5 @@
 .t8 { color: #6a0016; }
 
 #map {
-  padding-top: 3%;
-}
-
-@media (max-width: 720px) {
-  #map {
-    padding-top: 6%;
-  }
+  padding-top: 6%;
 }
