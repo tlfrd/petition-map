@@ -6,14 +6,14 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: White;
+  background-color: white;
   font-weight: 300;
 }
 
 h1 {
   margin: 0 0 20px;
   font-weight: 300;
-  color: White;
+  color: white;
   font-size: 2.5em;
 }
 
@@ -22,7 +22,7 @@ p, table {
 }
 
 a {
-  color: White;
+  color: white;
   font-weight: 400;
   text-decoration: none;
 }
@@ -35,47 +35,6 @@ table {
 th, td {
   text-align: left;
   padding: 5px 10px;
-}
-
-
-/* Left Column */
-
-
-#left_column {
-  height: 100%;
-  width: 20%;
-  top:0;
-  left:0;
-  position: absolute;
-  float:left;
-  padding: 20px;
-  background-color: #812A80;
-  color: white;
-  overflow: auto;
-}
-
-#left_column .section {
-  border-top: 1px solid #e5e5e5;
-  padding-top: 1em;
-  vertical-align: bottom;
-}
-
-#left_column .section h3:first-child {
-  margin-top: 0em;
-}
-
-@media (max-width: 720px) {
-  #left_column {
-    display: none;
-  }
-}
-
-.form_section {
-  margin: 0em 0em 1em 0em;
-}
-.form_section .label {
-  display: block;
-  margin-bottom: 0.5em;
 }
 
 #petition_url {
@@ -126,42 +85,25 @@ th, td {
 }
 
 #geojson_link:hover {
-  color: White;
+  color: white;
 }
 
 
 /* Right Column */
-
 #right_column {
-  width: 80%;
+  width: 100%;
   float: right;
-  color: White;
-}
-
-@media (max-width: 720px) {
-  #right_column {
-    width: 100%;
-  }
+  color: white;
 }
 
 #petition_info {
   position: fixed;
-  bottom: 40px;
-  left: 25%;
-  max-width: 18%;
-  padding: 20px;
   background-color: #812A80;
-  font-size: 0.8em;
-}
-
-@media (max-width: 720px) {
-  #petition_info {
-    bottom: 18%;
-    left: 10px;
-    font-size: 0.5em;
-    max-width: 20%;
-    padding: 10px;
-  }
+  bottom: 18%;
+  left: 10px;
+  font-size: 0.5em;
+  max-width: 20%;
+  padding: 10px;
 }
 
 @media (max-height: 480px) {
@@ -196,23 +138,13 @@ th, td {
 
 #constituency_info {
   position: fixed;
-  top: 40px;
-  left: 25%;
   display: none;
-  width: 12%;
-  padding: 15px 20px 20px 20px;
   background-color: #812A80;
-  font-size: 0.8em;
-}
-
-@media (max-width: 720px) {
-  #constituency_info {
-    top: 10%;
-    left: 10px;
-    width: 18%;
-    font-size: 0.5em;
-    padding: 10px;
-  }
+  top: 10%;
+  left: 10px;
+  width: 18%;
+  font-size: 0.5em;
+  padding: 10px;
 }
 
 @media (max-height: 480px) {
@@ -236,25 +168,16 @@ th, td {
 
 #key {
   width: 100%;
-  max-width: 150px;
   position: fixed;
-  right: 20px;
-  top: 20px;
-  color: Black;
+  color: black;
   font-weight: 400;
   background-color: #f6f6f6;
   opacity: 0.75;
-  padding: 10px;
-}
-
-@media (max-width: 720px) {
-  #key {
-    top: 10%;
-    right: 10px;
-    max-width: 100px;
-    padding: 5px;
-    font-size: 0.5em;
-  }
+  top: 10%;
+  right: 10px;
+  max-width: 100px;
+  padding: 5px;
+  font-size: 0.5em;
 }
 
 @media (max-height: 480px) {
@@ -274,25 +197,16 @@ th, td {
 #controls {
   text-align: center;
   width: 100%;
-  max-width: 150px;
   position: fixed;
-  bottom: 50%;
-  right: 20px;
-  color: Black;
+  color: black;
   font-weight: 400;
   background-color: #f6f6f6;
   opacity: 0.75;
-  padding: 10px;
-}
-
-@media (max-width: 720px) {
-  #controls {
-    bottom: 18%;
-    right: 10px;
-    max-width: 120px;
-    padding: 5px;
-    font-size: 0.6em;
-  }
+  bottom: 18%;
+  right: 10px;
+  max-width: 120px;
+  padding: 5px;
+  font-size: 0.6em;
 }
 
 @media (max-height: 480px) {
@@ -320,12 +234,6 @@ th, td {
   background-color: #f6f6f6;
   opacity: 0.75;
   padding: 10px;
-}
-
-@media (max-width: 720px) {
-  #share {
-    display: none;
-  }
 }
 
 .logo {
@@ -379,103 +287,70 @@ th, td {
 #spinner_area {
   position: fixed;
   top: 50%;
-  left: 61%;
+  left: 50%;
 }
 
-@media (max-width: 720px) {
-  #spinner_area {
-    left: 50%;
-  }
+header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: #812A80;
+  color: White;
+  font-weight: 300;
+  padding: 8px;
+  overflow: auto;
+  font-size: 0.7em;
 }
 
-
-/* Mobile */
-
-
-@media (max-width: 720px) {
-  #mobile_menu {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    background-color: #812A80;
-    color: White;
-    font-weight: 300;
-    padding: 8px;
-    overflow: auto;
-    font-size: 0.7em;
-  }
+header .header-item {
+  float: left;
+  display: block;
+  margin-right: 2em;
 }
-
-#mobile_heading {
+header h1 {
   font-size: 1.5em;
+  margin-bottom: 0em;
+}
+header h1 .built-by {
+  display: block  ;
+  font-size: 0.6em;
+}
+header h1 .built-by a {
+  font-weight: bold;
 }
 
-#area_text {
+header .header-item-row {
+  margin-bottom: 0.5em;
+}
+header form label {
   padding-right: 10px;
 }
 
-@media (min-width: 720px) {
-  #mobile_menu {
-    display: none;
-  }
+footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: #812A80;
+  color: White;
+  font-weight: 300;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 0.8em;
 }
 
-@media (max-width: 720px) {
-  #mobile_footer {
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    background-color: #812A80;
-    color: White;
-    font-weight: 300;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 0.8em;
-  }
+#settings-and-help, #licence {
+  display: none;
 }
 
-@media (min-width: 720px) {
-  #mobile_footer {
-    display: none;
-  }
-}
-
-@media (max-width: 720px) {
-  .logo {
-    display: none;
-  }
-}
-
-@media (max-width: 720px) {
-  .built_by {
-    display: none;
-  }
-}
-
-#petition_dropdown_mobile {
+#petition_dropdown {
   max-width: 50%;
 }
 
 #area_dropdown {
   max-width: 30%;
-}
-
-#select_text {
-  padding-right: 10px;
-}
-
-#mobile_menu ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
- #mobile_menu li {
-  display: inline;
-  padding-left: 10px;
 }
 
 #settings {
@@ -496,15 +371,9 @@ th, td {
   margin-bottom: 6px;
 }
 
-#petition_link_mobile {
+#petition_link {
   font-size: 1em;
   width: 30%;
   float: left;
   margin-left: 5px;
-}
-
-#built_by_unboxed {
-  font-size: 0.9em;
-  padding-left: 11px;
-  margin-top: -3px;
 }

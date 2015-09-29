@@ -6,101 +6,78 @@
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/map.css">
         <link rel="stylesheet" type="text/css" href="css/party_colours.css">
-        <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     </head>
 
     <body>
-        <div id="mobile_menu">
-            <ul>
-                <li><span id="mobile_heading">Petition Map</span></li>
-                <li>
-                    <label for="area_dropdown" id="area_text">Select Area</label>
-                    <span>
-                        <select id="area_dropdown">
-                            <option value="gb">Great Britain</option>
-                            <option value="eng">England</option>
-                            <option value="sco">Scotland</option>
-                            <option value="wal">Wales</option>
-                            <option value="lon">London</option>
-                        </select>
-                    </span>
-                </li>
-            </ul>
-
-            <div id="built_by_unboxed">built by <a href="https://www.unboxedconsulting.com/"><b>Unboxed</b></a></div>
-        </div>
-
-        <div id="mobile_footer">
-            <label for="petition_dropdown_mobile" id="select_text">Select Petition</span>
-            <span><select name="petition" id="petition_dropdown_mobile"></select></span>
-            <div id="settings">
-                <span><button class="flat_button" type="button" id="mobile_share">Share Map</button>
-                <input type="text" id="petition_link_mobile" hidden></span>
-                <button class="flat_button" id="hide_ui">Hide UI</button>
+        <header>
+          <h1 class="header-item">Petition Map <span class="built-by">built by <a href="https://www.unboxedconsulting.com/">Unboxed</a></span></h1>
+          <form class="header-item">
+            <div class="header-item-row">
+              <label for="area_dropdown" id="area_text">Select Area</label>
+              <select id="area_dropdown">
+                <option value="gb">Great Britain</option>
+                <option value="eng">England</option>
+                <option value="sco">Scotland</option>
+                <option value="wal">Wales</option>
+                <option value="lon">London</option>
+              </select>
             </div>
-        </div>
+            <div class="header-item-row">
+              <label for="constituency">Search for constituency</label>
+              <select name="constituency" id="constituency"></select>
+            </div>
+          </form>
+        </header>
 
-        <div id="left_column">
-            <h1>Petition Map</h1>
+        <footer>
+            <section id="petition_choice">
+              <label for="petition_dropdown" id="select_text">Select Petition</span>
+              <span><select name="petition" id="petition_dropdown"></select></span>
 
-            <form class="section">
-                <div class="form_section">
-                    <label for="petition_dropdown" class="label">Select a petition</label>
-                    <select name="petition" id="petition_dropdown" style="width: 85%"></select>
-                </div>
+              <div class="header-item-row">
+                <label for="petition_url">Enter a petition url</label>
+                <input type="text" id="petition_url">
+                <button class="flat_button" type="button" id="petition_button">Submit</button>
+              </div>
 
-                <div class="form_section">
-                    <p class="label">Select area</p>
-                    <label><input type="radio" name="area" checked="yes" value="gb" onclick="change_area()"/>  Great Britain</label><br/>
-                    <label><input type="radio" name="area" value="eng" onclick="change_area()"> England</label><br/>
-                    <label><input type="radio" name="area" value="sco" onclick="change_area()"> Scotland</label><br/>
-                    <label><input type="radio" name="area" value="wal" onclick="change_area()"> Wales</label><br/>
-                    <label><input type="radio" name="area" value="lon" onclick="change_area()"> London</label><br/>
-                </div>
-
-                <div class="form_section">
-                    <label for="constituency" class="label">Search for constituency</label>
-                    <select name="constituency" id="constituency" style="width: 85%"></select>
-                </div>
-
-                <div class="form_section">
-                    <label for="petition_url" class="label">Enter a petition url</label>
-                    <input type="text" id="petition_url">
-                    <button class="flat_button" type="button" id="petition_button">Submit</button>
-                </div>
-            </form>
-
-            <section id="settings-and-help" data-collapse class="section">
-                <h3><i class="fa fa-chevron-down"> Settings</i></h3>
-                <div class="form_section">
-                    <p><input type="checkbox" id="hide_petition_info"> Hide Petition Info</p>
-                    <p><input type="checkbox" id="hide_map_key"> Hide Map Key</p>
-                </div>
-                <h3><i class="fa fa-chevron-down"> Help</i></h3>
-                <div id="help">
-                    <span class="help_header">Where is Northern Ireland?</span></br>
-                    <p>Unfortunately, the data for NI is not available at this time due to licensing issues.</p>
-                    </br>
-                    <span class="help_header">I can't find a petition in the drop down list!</span></br>
-                    <p>You can generate a heatmap for any petition by entering the url from the Government Petitions site in the entry box above.</p>
-                </div>
+              <div id="settings">
+                  <span><button class="flat_button" type="button" id="mobile_share">Share Map</button>
+                  <input type="text" id="petition_link" hidden></span>
+                  <button class="flat_button" id="hide_ui">Hide UI</button>
+              </div>
             </section>
+        </footer>
 
-            <section id="licence" class="section">
-                <p>
-                    <a id="geojson_link" href="https://github.com/martinjc/UK-GeoJson">
-                        GeoJSON and TopoJSON UK Boundary Data
-                    </a>
-                    by Martin Chorley is licensed under a Creative Commons Attribution 4.0 International License.
-                </p></br>
-                <p>
-                    Contains Ordnance Survey, Office of National Statistics and National Records Scotland data © Crown copyright and database right [2014]. Ordnance Survey data covered by OS OpenData Licence.
-                </p>
-            </section>
-        </div>
+        <section id="settings-and-help" data-collapse>
+            <h3><i class="fa fa-chevron-down"> Settings</i></h3>
+            <div class="form_section">
+                <p><input type="checkbox" id="hide_petition_info"> Hide Petition Info</p>
+                <p><input type="checkbox" id="hide_map_key"> Hide Map Key</p>
+            </div>
+            <h3><i class="fa fa-chevron-down"> Help</i></h3>
+            <div id="help">
+                <span class="help_header">Where is Northern Ireland?</span></br>
+                <p>Unfortunately, the data for NI is not available at this time due to licensing issues.</p>
+                </br>
+                <span class="help_header">I can't find a petition in the drop down list!</span></br>
+                <p>You can generate a heatmap for any petition by entering the url from the Government Petitions site in the entry box above.</p>
+            </div>
+        </section>
+
+        <section id="licence">
+            <p>
+                <a id="geojson_link" href="https://github.com/martinjc/UK-GeoJson">
+                    GeoJSON and TopoJSON UK Boundary Data
+                </a>
+                by Martin Chorley is licensed under a Creative Commons Attribution 4.0 International License.
+            </p></br>
+            <p>
+                Contains Ordnance Survey, Office of National Statistics and National Records Scotland data © Crown copyright and database right [2014]. Ordnance Survey data covered by OS OpenData Licence.
+            </p>
+        </section>
 
         <div id="right_column">
             <section id="constituency_info">
@@ -152,25 +129,16 @@
                 <button class="flat_button zoom" id="zoom_out"><i class="fa fa-minus"></i></button>
                 <button class="flat_button" id="reset">Reset</button>
             </section>
-            <section id="share">
-                <button class="flat_button" type="button" id="petition_get_link">Share Map</button>
-                <div id="link_help" hidden>Copy the link below</div>
-                <input type="text" id="petition_link" hidden>
-            </section>
             <section id="map">
                 <div id="spinner_area">
                 </div>
             </section>
         </div>
 
-        <span class="built_by">built by</span>
-        <span class="logo"><a id="ubxd" href="https://www.unboxedconsulting.com/">Unboxed</a></span>
-
         <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
         <script src="plugins/collapse/jquery.collapse.js"></script>
         <script src="plugins/spin/spin.min.js"></script>
 

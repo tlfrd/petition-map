@@ -35,25 +35,12 @@ $(document).ready(function() {
             $('#petition_dropdown').append(
                 $('<option></option>').val(item.id).html(dropdown_text)
             );
-            $('#petition_dropdown_mobile').append(
-                $('<option></option>').val(item.id).html(dropdown_text)
-            );
         });
 
         load_mp_data();
 
-        var variables = get_url_variables();
-
-        $("#petition_dropdown").select2();
-
-        var petition_id;
-        if ($(window).width() > 720) {
-            console.log("desktop")
-            petition_id = $("#petition_dropdown").val();
-        } else {
-            console.log("mobile");
-            petition_id = $("#petition_dropdown_mobile").val();
-        }
+        var variables = get_url_variables(),
+          petition_id = $("#petition_dropdown").val();
 
         if (!jQuery.isEmptyObject(variables)) {
             petition_id = variables.petition;
@@ -91,8 +78,6 @@ function load_mp_data() {
                 $('<option></option>').val(index).html(dropdown_text)
             );
         });
-
-        $("#constituency").select2();
     });
 }
 
@@ -127,32 +112,16 @@ function display_petition_info() {
     var count_html = "<span id=\"data_count\">" + count + "</span>";
     var sign_html = "<a class=\"flat_button sign\" href='" + sign_link + "'><i class=\"fa fa-pencil\"></i> Sign Petition</a>";
 
-    if ($(window).width() > 720) {
-        $('#petition_info').append(
-            $('<tr></tr>').html("<div id=\"petition_action\">" + current_petition.data.attributes.action + "<div>")
-        );
-        $('#petition_info').append(
-            $('<tr></tr>').html("</br>" + current_petition.data.attributes.background + "</br>")
-        );
-        $('#petition_info').append(
-            $('<tr></tr>').html("</br><div>" + count_html + " <span id=\"signatures\">signatures</span></div>")
-        );
-        $('#petition_info').append(
-            $('<tr></tr>').html("</br>" + sign_html)
-        );
-        $('#petition_info').show();
-    } else {
-        $('#petition_info').append(
-            $('<tr></tr>').html("<div id=\"petition_action\">" + current_petition.data.attributes.action + "<div>")
-        );
-        $('#petition_info').append(
-            $('<tr></tr>').html("</br><div>" + count_html + " <span id=\"signatures\">signatures</span></div>")
-        );
-        $('#petition_info').append(
-            $('<tr></tr>').html("</br>" + sign_html)
-        );
-        $('#petition_info').show();
-    }
+    $('#petition_info').append(
+        $('<tr></tr>').html("<div id=\"petition_action\">" + current_petition.data.attributes.action + "<div>")
+    );
+    $('#petition_info').append(
+      $('<tr></tr>').html("</br><div>" + count_html + " <span id=\"signatures\">signatures</span></div>")
+    );
+    $('#petition_info').append(
+      $('<tr></tr>').html("</br>" + sign_html)
+    );
+    $('#petition_info').show();
 }
 
 function change_area() {
@@ -163,11 +132,7 @@ function change_area() {
 function reload_map() {
     units = "wpc";
 
-    var area = $("input[name='area']:checked").val();
-
-    if ($(window).width() < 720) {
-        area = $("#area_dropdown").val();
-    }
+    var area = $("#area_dropdown").val();
 
     var f = 'json/uk/' + area + '/topo_' + units + '.json';
     load_data(f, units);
