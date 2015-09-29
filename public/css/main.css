@@ -222,20 +222,6 @@ th, td {
   }
 }
 
-#share {
-  text-align: center;
-  width: 100%;
-  max-width: 150px;
-  position: fixed;
-  bottom: 5%;
-  right: 30%;
-  color: Black;
-  font-weight: 400;
-  background-color: #f6f6f6;
-  opacity: 0.75;
-  padding: 10px;
-}
-
 .logo {
   position: absolute;
   bottom: 35px;
@@ -361,13 +347,6 @@ footer {
   font-size: 0.8em;
   float: right;
   margin-right: 25px;
-  margin-bottom: 6px;
-}
-
-#mobile_share {
-  font-size: 0.8em;
-  float: left;
-  margin-left: 25px;
   margin-bottom: 6px;
 }
 
