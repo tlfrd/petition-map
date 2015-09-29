@@ -50,7 +50,18 @@ th, td {
   float:left;
   padding: 20px;
   background-color: #812A80;
-  color: White;
+  color: white;
+  overflow: auto;
+}
+
+#left_column .section {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1em;
+  vertical-align: bottom;
+}
+
+#left_column .section h3:first-child {
+  margin-top: 0em;
 }
 
 @media (max-width: 720px) {
@@ -60,15 +71,11 @@ th, td {
 }
 
 .form_section {
-  padding-top: 3px;
+  margin: 0em 0em 1em 0em;
 }
-
-#petition_dropdown {
-  width: 85%;
-}
-
-#constituency {
-  width: 85%;
+.form_section .label {
+  display: block;
+  margin-bottom: 0.5em;
 }
 
 #petition_url {
@@ -105,11 +112,6 @@ th, td {
 }
 
 #licence {
-  position: absolute;
-  border-top: 1px solid #e5e5e5;
-  padding-top: 10px;
-  width: 90%;
-  vertical-align: bottom;
   font-size: 0.75em;
 }
 
