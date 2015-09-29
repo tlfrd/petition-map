@@ -42,17 +42,6 @@ th, td {
   width: 50%;
 }
 
-#petition_link {
-  font-size: 1em;
-  max-width: 80%;
-}
-
-#link_help {
-  font-size: 0.9em;
-  margin-top: 10px;
-  margin-bottom: 3px;
-}
-
 #petition_button {
   font-size: 0.8em;
   margin-left: 0.2em;
@@ -65,19 +54,8 @@ th, td {
   padding-bottom: 20px;
 }
 
-.help_header {
-  font-weight: 400;
-  font-size: 1.1em;
-}
-
 #licence {
-  font-size: 0.75em;
-}
-
-@media (max-height: 720px) {
-  #licence {
-    font-size: 0.6em;
-  }
+  font-size: 0.6em;
 }
 
 #geojson_link {
@@ -87,7 +65,6 @@ th, td {
 #geojson_link:hover {
   color: white;
 }
-
 
 /* Right Column */
 #right_column {
@@ -117,12 +94,6 @@ th, td {
 @media (max-height: 360px) {
   #petition_info {
     visibility: hidden;
-  }
-}
-
-@media (max-width: 720px) {
-  .sign {
-    max-width: 40%;
   }
 }
 
@@ -193,31 +164,6 @@ th, td {
     visibility: hidden;
   }
 }
-
-.logo {
-  position: absolute;
-  bottom: 35px;
-  right: 20px;
-  text-align: right;
-  font-size: 2em;
-  color: Black;
-}
-
-.built_by {
-  position: absolute;
-  bottom: 70px;
-  right: 94px;
-  color: Grey;
-}
-
-#ubxd {
-  color: Black;
-}
-
-#ubxd:hover {
-  color: #812A80;
-}
-
 
 /* Buttons */
 
@@ -320,13 +266,6 @@ footer {
   float: right;
   margin-right: 25px;
   margin-bottom: 6px;
-}
-
-#petition_link {
-  font-size: 1em;
-  width: 30%;
-  float: left;
-  margin-left: 5px;
 }
 
 #controls {
