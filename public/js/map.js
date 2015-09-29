@@ -245,6 +245,8 @@ function redraw() {
 
     init(width, height);
     draw(boundaries);
+    recolour_map();
+    svg.attr("transform", "translate(" + translate_saved + ")scale(" + scale_saved + ")");
 }
 
 // loads data from the given file and redraws and recolours the map
