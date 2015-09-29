@@ -194,34 +194,6 @@ th, td {
   }
 }
 
-#controls {
-  text-align: center;
-  width: 100%;
-  position: fixed;
-  color: black;
-  font-weight: 400;
-  background-color: #f6f6f6;
-  opacity: 0.75;
-  bottom: 18%;
-  right: 10px;
-  max-width: 120px;
-  padding: 5px;
-  font-size: 0.6em;
-}
-
-@media (max-height: 480px) {
-  #controls {
-    font-size: 0.3em;
-    bottom: 23%;
-  }
-}
-
-@media (max-height: 360px) {
-  #controls {
-    display: none;
-  }
-}
-
 .logo {
   position: absolute;
   bottom: 35px;
@@ -355,4 +327,57 @@ footer {
   width: 30%;
   float: left;
   margin-left: 5px;
+}
+
+#controls {
+  text-align: center;
+  position: fixed;
+  color: black;
+  font-weight: 400;
+  background-color: #f6f6f6;
+  opacity: 0.75;
+  bottom: 18%;
+  right: 10px;
+  width: 11em;
+  padding: 0.5em;
+  font-size: 0.6em;
+}
+
+@media (max-height: 480px) {
+  #controls {
+    font-size: 0.3em;
+    bottom: 23%;
+  }
+}
+
+@media (max-height: 360px) {
+  #controls {
+    display: none;
+  }
+}
+
+#controls .controls-col {
+  display: inline-block;
+  width: 2em;
+  height: 6em;
+  float: left;
+  margin-right: 1em;
+}
+#controls .controls-col:last-of-type {
+  margin-right: 0em;
+}
+#controls .controls-col .flat_button {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+#controls .controls-col .flat_button.row-span {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  padding: 0.5em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }

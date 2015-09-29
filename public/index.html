@@ -114,8 +114,20 @@
                 </table>
             </section>
             <section id="controls">
-                <button class="flat_button zoom" id="zoom_in"><i class="fa fa-plus"></i></button>
-                <button class="flat_button zoom" id="zoom_out"><i class="fa fa-minus"></i></button>
+                <div class="controls-col">
+                  <button class="flat_button zoom" id="zoom_in"><i class="fa fa-plus"></i></button>
+                  <button class="flat_button zoom" id="zoom_out"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="controls-col">
+                  <button class="flat_button pan row-span" id="pan_west"><i class="fa fa-angle-left"></i></button>
+                </div>
+                <div class="controls-col">
+                  <button class="flat_button pan" id="pan_north"><i class="fa fa-angle-up"></i></button>
+                  <button class="flat_button pan" id="pan_south"><i class="fa fa-angle-down"></i></button>
+                </div>
+                <div class="controls-col">
+                  <button class="flat_button pan row-span" id="pan_east"><i class="fa fa-angle-right"></i></button>
+                </div>
                 <button class="flat_button" id="reset">Reset</button>
             </section>
             <section id="map">

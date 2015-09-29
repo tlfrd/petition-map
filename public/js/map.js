@@ -98,10 +98,9 @@ function number_with_commas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function interpolate_zoom(translate, scale) {
+function interpolate_zoom_and_pan(translate, scale) {
     translate_saved = translate;
     scale_saved = scale;
-    var self = this;
     return d3.transition().duration(350).tween("zoom", function () {
         var iTranslate = d3.interpolate(zoom.translate(), translate),
             iScale = d3.interpolate(zoom.scale(), scale);
@@ -139,7 +138,7 @@ function zoom_button() {
     view.x += center[0] - l[0];
     view.y += center[1] - l[1];
 
-    interpolate_zoom([view.x, view.y], view.k);
+    interpolate_zoom_and_pan([view.x, view.y], view.k);
 }
 
 function zoomed() {
@@ -166,6 +165,39 @@ $("#reset").on('click', function() {
 });
 
 d3.selectAll('.zoom').on('click', zoom_button);
+
+function pan_button() {
+    var clicked = d3.event.target,
+        offsetX = 0,
+        offsetY = 0,
+        center = [width / 2, height / 2],
+        translate = zoom.translate(),
+        translate0 = [],
+        l = [],
+        view = {x: translate[0], y: translate[1], k: zoom.scale()};
+
+    d3.event.preventDefault();
+    if (this.id == 'pan_west') {
+      offsetX -= 50;
+    } else if (this.id === 'pan_north') {
+      offsetY -= 50;
+    } else if (this.id === 'pan_south') {
+      offsetY += 50;
+    } else if (this.id === 'pan_east') {
+      offsetX += 50;
+    }
+
+    translate0 = [(center[0] - view.x) / view.k, (center[1] - view.y) / view.k];
+    l = [translate0[0] * view.k + view.x + offsetX, translate0[1] * view.k + view.y + offsetY];
+
+    view.x += center[0] - l[0];
+    view.y += center[1] - l[1];
+
+    interpolate_zoom_and_pan([view.x, view.y], view.k);
+}
+
+d3.selectAll('.pan').on('click', pan_button);
+
 
 // draw our map on the SVG element
 function draw(boundaries) {
@@ -232,7 +264,7 @@ function load_data(filename, u) {
         display_petition_info();
         $('#key').fadeIn();
         spinner.stop();
-        interpolate_zoom(translate_saved, scale_saved);
+        interpolate_zoom_and_pan(translate_saved, scale_saved);
     });
 }
 
