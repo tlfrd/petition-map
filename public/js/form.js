@@ -158,14 +158,6 @@ $("#petition_dropdown").on('change', function() {
     load_petition(petition_id, false);
 });
 
-$("#petition_dropdown_mobile").on('change', function() {
-    spinner.spin(target);
-
-    var petition_id = $("#petition_dropdown_mobile").val()
-
-    load_petition(petition_id, false);
-});
-
 $("#constituency").on('change', function() {
     var ons_code = $("#constituency").val()
 
@@ -174,37 +166,6 @@ $("#constituency").on('change', function() {
     }
 
     select(constituency_data);
-});
-
-$("#hide_petition_info").click(function(){
-    if($(this).prop("checked") == true){
-        $('#petition_info').fadeOut();
-    }
-    else if($(this).prop("checked") == false){
-        $('#petition_info').fadeIn();
-    }
-});
-
-$("#hide_map_key").click(function(){
-    if($(this).prop("checked") == true){
-        $('#key').fadeOut();
-    }
-    else if($(this).prop("checked") == false){
-        $('#key').fadeIn();
-    }
-});
-
-$('#petition_get_link').click(function() {
-    var root_url = window.location.origin;
-    var petition = current_petition.data.id;
-    var area = $("input[name='area']:checked").val();
-    var link = root_url + "/?" + "petition=" + petition + "&area=" + area;
-
-    $('#petition_link').val(link);
-    $('#petition_link').fadeIn();
-    $('#petition_link').focus().select();
-
-    $('#link_help').fadeIn();
 });
 
 $('#hide_ui').click(function() {

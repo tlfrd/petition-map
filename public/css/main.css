@@ -327,7 +327,7 @@ footer {
   font-size: 0.8em;
 }
 
-#settings-and-help, #licence {
+#help, #licence {
   display: none;
 }
 
