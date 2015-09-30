@@ -8,6 +8,7 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: white;
   font-weight: 300;
+  margin: 0em;
 }
 
 h1 {
@@ -66,26 +67,26 @@ th, td {
   color: white;
 }
 
-/* Right Column */
-#right_column {
+main {
   width: 100%;
-  float: right;
+  position: absolute;
+  top: 3.5em; /* header height: 3em + 2em * 0.7 */
+  bottom: 6.4em; /* footer height: 6em + 2em * 0.8 */
   color: white;
 }
 
 #petition_info {
-  position: fixed;
+  position: absolute;
   background-color: #812A80;
-  bottom: 18%;
-  left: 10px;
+  bottom: 1em;
+  left: 1em;
   font-size: 0.5em;
   max-width: 20%;
-  padding: 10px;
+  padding: 1em;
 }
 
 @media (max-height: 480px) {
   #petition_info {
-    bottom: 23%;
     font-size: 0.3em;
     max-width: 25%;
   }
@@ -108,21 +109,20 @@ th, td {
 }
 
 #constituency_info {
-  position: fixed;
+  position: absolute;
   display: none;
   background-color: #812A80;
-  top: 10%;
-  left: 10px;
+  top: 1em;
+  left: 1em;
   width: 18%;
   font-size: 0.5em;
-  padding: 10px;
+  padding: 1em;
 }
 
 @media (max-height: 480px) {
   #constituency_info {
     width: 35%;
     font-size: 0.3em;
-    top: 12%;
   }
 }
 
@@ -139,15 +139,15 @@ th, td {
 
 #key {
   width: 100%;
-  position: fixed;
+  position: absolute;
   color: black;
   font-weight: 400;
   background-color: #f6f6f6;
   opacity: 0.75;
-  top: 10%;
-  right: 10px;
+  top: 1em;
+  right: 1em;
   max-width: 100px;
-  padding: 5px;
+  padding: 0.5em;
   font-size: 0.5em;
 }
 
@@ -155,7 +155,6 @@ th, td {
   #key {
     font-size: 0.3em;
     padding: 2px;
-    top: 12%;
   }
 }
 
@@ -200,11 +199,12 @@ header {
   left: 0px;
   width: 100%;
   background-color: #812A80;
-  color: White;
+  color: white;
   font-weight: 300;
-  padding: 8px;
+  padding: 1em;
   overflow: auto;
   font-size: 0.7em;
+  height: 3em;
 }
 
 header .header-item {
@@ -237,12 +237,13 @@ footer {
   left: 0px;
   width: 100%;
   background-color: #812A80;
-  color: White;
+  color: white;
   font-weight: 300;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 1em;
+  padding-bottom: 1em;
   font-size: 0.8em;
+  height: 6em;
 }
 
 #help, #licence {
@@ -265,13 +266,13 @@ footer {
 }
 
 #controls {
-  position: fixed;
+  position: absolute;
   color: black;
   font-weight: 400;
   background-color: #f6f6f6;
   opacity: 0.75;
-  bottom: 18%;
-  right: 10px;
+  bottom: 1em;
+  right: 1em;
   width: 11em;
   padding: 0.5em;
   font-size: 0.6em;
@@ -280,7 +281,6 @@ footer {
 @media (max-height: 480px) {
   #controls {
     font-size: 0.3em;
-    bottom: 23%;
   }
 }
 

@@ -2,7 +2,6 @@
 
 /* Map */
 
-
 .area {
   fill: #C0C0C0;
   color: #C0C0C0;
@@ -37,7 +36,3 @@
 .t6 { color: #b10026; }
 .t7 { color: #8d001e; }
 .t8 { color: #6a0016; }
-
-#map {
-  padding-top: 6%;
-}

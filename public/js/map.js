@@ -14,7 +14,7 @@ var parties = ["Conservative", "Green", "Independent", "Labour", "LabourCooperat
 
 function compute_size() {
     width = parseInt(d3.select("#map").style("width"));
-    height = window.innerHeight * 0.78;
+    height = $('main').innerHeight();
 }
 
 compute_size();
