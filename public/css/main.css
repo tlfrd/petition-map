@@ -88,7 +88,19 @@ main {
   }
 }
 
-#petition_info .petition-details div {
+#constituency_info > * {
+  margin-bottom: 0.5em;
+}
+#constituency_info *:last-child {
+  margin-bottom: 0em;
+}
+#constituency_info h2 {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin-top: 0em;
+}
+
+#petition_info .petition-details > * {
   margin-bottom: 0.5em;
 }
 #petition_info .petition-details h2 {
@@ -96,13 +108,12 @@ main {
   font-weight: 400;
   margin-top: 0em;
 }
-#petition_info .petition-details .signatures {
+.signatures_count {
   font-size: 1.5em;
-  padding-left: 2px;
 }
-#petition_info .petition-details .data_count {
+.signatures_count .data {
   font-weight: 300;
-  font-size: 2.5em;
+  font-size: 1.7em;
 }
 
 #petition_info .petition-choice .choice-row {
@@ -141,12 +152,6 @@ main {
     width: 35%;
     font-size: 0.3em;
   }
-}
-
-#constituency_name {
-  font-size: 1.2em;
-  font-weight: 400;
-  padding-bottom: 5px;
 }
 
 #key {

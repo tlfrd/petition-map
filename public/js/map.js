@@ -66,9 +66,10 @@ function select(d) {
         count = "0";
     }
 
-    $('#constituency_info').append('<div id="constituency_name">' + name + "</div>");
-    $('#constituency_info').append('<div id="constituency_mp">' + mp + '</br>' + party + '</div>');
-    $('#constituency_info').append('<div><span id="data_count">' + number_with_commas(count) + '</span> <span id="signatures">signatures</span></div>');
+    $('#constituency_info').append('<h2>' + name + "</h2>");
+    $('#constituency_info').append('<p class="mp">' + mp + '</p>');
+    $('#constituency_info').append('<p class="party">' + party + '</p>');
+    $('#constituency_info').append('<p class="signatures_count"><span class="data">' + number_with_commas(count) + '</span> signatures</p>');
 }
 
 function deselect(d) {

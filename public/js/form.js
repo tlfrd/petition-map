@@ -123,13 +123,13 @@ function display_petition_info() {
     var count = number_with_commas(current_petition.data.attributes.signature_count);
 
     var sign_link = 'https://petition.parliament.uk/petitions/' + current_petition.data.id + '/signatures/new';
-    var count_html = '<span class="data_count">' + count + '</span>';
+    var count_html = '<p class="signatures_count"><span class="data">' + count + '</span> signatures</p>';
     var sign_html = '<a class="flat_button sign" href="' + sign_link + '"><i class="fa fa-pencil"></i> Sign Petition</a>';
 
     var petition_details =
       '<div class="petition-details">' +
         '<h2>' + current_petition.data.attributes.action + '</h2>' +
-        '<div>' + count_html + ' <span class="signatures">signatures</span></div>' +
+        count_html +
         '<div>' + sign_html +'</div>' +
       '</div>';
 
