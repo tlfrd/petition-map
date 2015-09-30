@@ -253,10 +253,6 @@ footer {
   max-width: 50%;
 }
 
-#area_dropdown {
-  max-width: 30%;
-}
-
 #settings {
   padding-top: 8px;
 }
@@ -269,7 +265,6 @@ footer {
 }
 
 #controls {
-  text-align: center;
   position: fixed;
   color: black;
   font-weight: 400;
@@ -319,4 +314,18 @@ footer {
   padding: 0.5em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+}
+#controls .controls-row {
+  clear: both;
+  overflow: auto;
+  margin-bottom: 0.5em;
+}
+#controls .controls-row:last-of-type {
+  margin-bottom: 0em;
+}
+#controls .controls-row label.inline {
+  display: block;
+}
+#controls .controls-row .flat_button.row {
+  width: 11em;
 }

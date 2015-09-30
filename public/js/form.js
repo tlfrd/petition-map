@@ -132,6 +132,7 @@ function display_petition_info() {
 }
 
 function change_area() {
+    spinner.spin(target);
     reset();
     reload_map();
 }
@@ -139,23 +140,13 @@ function change_area() {
 function reload_map() {
     units = "wpc";
 
-    var area = $("#area_dropdown").val();
+    var area = $("input[name='area']:checked").val();
 
     var f = 'json/uk/' + area + '/topo_' + units + '.json';
     load_data(f, units);
 }
 
-$("#area_dropdown").on('change', function() {
-    spinner.spin(target);
-
-    units = "wpc";
-
-    var area = $("#area_dropdown").val()
-    console.log(area);
-
-    var f = 'json/uk/' + area + '/topo_' + units + '.json';
-    load_data(f, units);
-});
+$("input[name='area']").on('change', change_area);
 
 $("#petition_dropdown").on('change', function() {
     spinner.spin(target);

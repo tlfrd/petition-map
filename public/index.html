@@ -16,16 +16,6 @@
           <h1 class="header-item">Petition Map <span class="built-by">built by <a href="https://www.unboxedconsulting.com/">Unboxed</a></span></h1>
           <form class="header-item">
             <div class="header-item-row">
-              <label for="area_dropdown" id="area_text">Select Area</label>
-              <select id="area_dropdown">
-                <option value="gb">Great Britain</option>
-                <option value="eng">England</option>
-                <option value="sco">Scotland</option>
-                <option value="wal">Wales</option>
-                <option value="lon">London</option>
-              </select>
-            </div>
-            <div class="header-item-row">
               <label for="constituency">Search for constituency</label>
               <select name="constituency" id="constituency"></select>
             </div>
@@ -114,21 +104,35 @@
                 </table>
             </section>
             <section id="controls">
+              <div class="controls-row">
                 <div class="controls-col">
-                  <button class="flat_button zoom" id="zoom_in"><i class="fa fa-plus"></i></button>
-                  <button class="flat_button zoom" id="zoom_out"><i class="fa fa-minus"></i></button>
+                  <button class="flat_button zoom" id="zoom_in" tabindex="1" title="zoom map in"><i class="fa fa-plus"></i></button>
+                  <button class="flat_button zoom" id="zoom_out"  tabindex="2" title="zoom map out"><i class="fa fa-minus"></i></button>
                 </div>
                 <div class="controls-col">
-                  <button class="flat_button pan row-span" id="pan_west"><i class="fa fa-angle-left"></i></button>
+                  <button class="flat_button pan row-span" id="pan_west" tabindex="3" title="pan map west"><i class="fa fa-angle-left"></i></button>
                 </div>
                 <div class="controls-col">
-                  <button class="flat_button pan" id="pan_north"><i class="fa fa-angle-up"></i></button>
-                  <button class="flat_button pan" id="pan_south"><i class="fa fa-angle-down"></i></button>
+                  <button class="flat_button pan" id="pan_north" tabindex="4" title="pan map north"><i class="fa fa-angle-up"></i></button>
+                  <button class="flat_button pan" id="pan_south" tabindex="5" title="pan map south"><i class="fa fa-angle-down"></i></button>
                 </div>
                 <div class="controls-col">
-                  <button class="flat_button pan row-span" id="pan_east"><i class="fa fa-angle-right"></i></button>
+                  <button class="flat_button pan row-span" id="pan_east" tabindex="6" title="pan map east"><i class="fa fa-angle-right"></i></button>
                 </div>
-                <button class="flat_button" id="reset">Reset</button>
+              </div>
+              <div class="controls-row">
+                <button class="flat_button row" id="reset" tabindex="7" title="Reset map zoom &amp; pan">Reset zoom &amp; pan</button>
+              </div>
+              <div class="controls-row">
+                <details>
+                  <summary class="flat_button" tabindex="8" title="Choose map area">Choose map area</summary>
+                  <label class="inline" title="Show full Great Britain map"><input type="radio" name="area" value="gb" checked tabindex="9">Great Britain</label>
+                  <label class="inline" title="Show only England map"><input type="radio" name="area" value="eng" tabindex="9">England</label>
+                  <label class="inline" title="Show only Scotland map"><input type="radio" name="area" value="sco" tabindex="9">Scotland</label>
+                  <label class="inline" title="Show only Wales map"><input type="radio" name="area" value="wal" tabindex="9">Wales</label>
+                  <label class="inline" title="Show only London map"><input type="radio" name="area" value="lon" tabindex="9">London</label>
+                </details>
+              </div>
             </section>
             <section id="map">
                 <div id="spinner_area">
