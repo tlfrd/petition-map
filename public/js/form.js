@@ -172,7 +172,7 @@ $("#constituency").on('change', function() {
     select(constituency_data);
 });
 
-$('#hide_ui').click(function() {
+$('#hide_ui').on('click', function() {
     if (ui_hidden) {
         $('#petition_info').fadeIn();
         $('#key').fadeIn();
@@ -186,7 +186,7 @@ $('#hide_ui').click(function() {
     }
 });
 
-d3.select('#petition_button').on('click', function() {
+$('#petition_button').on('click', function() {
     petition_url = $('#petition_url').val()
     load_petition(petition_url, true);
 
