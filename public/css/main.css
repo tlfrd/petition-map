@@ -219,11 +219,6 @@ header {
   height: 3em;
 }
 
-header .header-item {
-  float: left;
-  display: block;
-  margin-right: 2em;
-}
 header h1 {
   font-size: 1.5em;
   margin-bottom: 0em;
@@ -234,13 +229,6 @@ header h1 .built-by {
 }
 header h1 .built-by a {
   font-weight: bold;
-}
-
-header .header-item-row {
-  margin-bottom: 0.5em;
-}
-header form label {
-  padding-right: 10px;
 }
 
 footer {
