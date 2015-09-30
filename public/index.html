@@ -14,29 +14,14 @@
     <body>
         <header>
           <h1 class="header-item">Petition Map <span class="built-by">built by <a href="https://www.unboxedconsulting.com/">Unboxed</a></span></h1>
-          <form class="header-item">
-            <div class="header-item-row">
-              <label for="constituency">Search for constituency</label>
-              <select name="constituency" id="constituency"></select>
-            </div>
-          </form>
         </header>
 
         <footer>
-            <section id="petition_choice">
-              <label for="petition_dropdown" id="select_text">Select Petition</span>
-              <span><select name="petition" id="petition_dropdown"></select></span>
-
-              <div class="header-item-row">
-                <label for="petition_url">Enter a petition url</label>
-                <input type="text" id="petition_url">
-                <button class="flat_button" type="button" id="petition_button">Submit</button>
-              </div>
-
-              <div id="settings">
-                  <button class="flat_button" id="hide_ui">Hide UI</button>
-              </div>
-            </section>
+          <div class="footer-item">
+            <label for="constituency">Search for constituency</label>
+            <select name="constituency" id="constituency"></select>
+          </div>
+          <button class="flat_button" id="hide_ui">Hide UI</button>
         </footer>
 
         <section id="help">
@@ -62,6 +47,24 @@
             <section id="constituency_info">
             </section>
             <section id="petition_info" hidden>
+              <div class="petition-details"></div>
+
+              <details class="petition-choice">
+                <summary class="flat_button">Show a different petition</summary>
+
+                <div class="choice-row">
+                  <label for="petition_url">Enter a petition url</label>
+                  <input type="text" id="petition_url" placeholder="https://petitions.parliament.uk/petitions/105991">
+                  <button class="flat_button" type="button" id="petition_button">and show it</button>
+                </div>
+
+                <p class="choice-row">Or</p>
+
+                <div class="choice-row">
+                  <label for="petition_dropdown" id="select_text">Choose a popular Petition</label>
+                  <select name="petition" id="petition_dropdown"></select>
+                </div>
+              </details>
             </section>
             <section id="key" hidden>
                 <table>

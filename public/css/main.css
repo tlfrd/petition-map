@@ -38,16 +38,6 @@ th, td {
   padding: 5px 10px;
 }
 
-#petition_url {
-  font-size: 1em;
-  width: 50%;
-}
-
-#petition_button {
-  font-size: 0.8em;
-  margin-left: 0.2em;
-}
-
 #help {
   font-size: 0.9em;
   overflow: auto;
@@ -71,7 +61,7 @@ main {
   width: 100%;
   position: absolute;
   top: 3.5em; /* header height: 3em + 2em * 0.7 */
-  bottom: 6.4em; /* footer height: 6em + 2em * 0.8 */
+  bottom: 4em; /* footer height: 3em + 2em * 0.8 */
   color: white;
 }
 
@@ -98,14 +88,41 @@ main {
   }
 }
 
-#petition_action {
+#petition_info .petition-details div {
+  margin-bottom: 0.5em;
+}
+#petition_info .petition-details h2 {
   font-size: 1.2em;
   font-weight: 400;
+  margin-top: 0em;
 }
-
-#signatures {
+#petition_info .petition-details .signatures {
   font-size: 1.5em;
   padding-left: 2px;
+}
+#petition_info .petition-details .data_count {
+  font-weight: 300;
+  font-size: 2.5em;
+}
+
+#petition_info .petition-choice .choice-row {
+  margin-top: 1em;
+}
+#petition_info .petition-choice label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+#petition_info .petition-choice input[type=text] {
+  width: 92%;
+  padding: 4%;
+  border-width: 0px;
+}
+
+#petition_info .petition-choice select {
+  width: 100%;
+}
+#petition_info .petition-choice button {
+  width: 100%;
 }
 
 #constituency_info {
@@ -130,11 +147,6 @@ main {
   font-size: 1.2em;
   font-weight: 400;
   padding-bottom: 5px;
-}
-
-#data_count {
-  font-weight: 300;
-  font-size: 2.5em;
 }
 
 #key {
@@ -243,26 +255,17 @@ footer {
   padding-top: 1em;
   padding-bottom: 1em;
   font-size: 0.8em;
-  height: 6em;
+  height: 3em;
 }
 
 #help, #licence {
   display: none;
 }
 
-#petition_dropdown {
-  max-width: 50%;
-}
-
-#settings {
-  padding-top: 8px;
-}
-
 #hide_ui {
   font-size: 0.8em;
   float: right;
-  margin-right: 25px;
-  margin-bottom: 6px;
+  margin-right: 1.25em;
 }
 
 #controls {

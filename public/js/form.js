@@ -1,6 +1,6 @@
-var current_petition;
-var mp_data;
-var ui_hidden = false;
+var current_petition,
+  mp_data,
+  ui_hidden = false;
 
 var opts = {
     lines: 13,
@@ -118,27 +118,22 @@ function load_petition(petition_id, is_url) {
 }
 
 function display_petition_info() {
-    $('#hide_petition_info').prop('checked', false);
-
     $('#petition_info').hide();
-    $('#petition_info').empty();
-    $('#petition_info').append('<table></table>');
 
     var count = number_with_commas(current_petition.data.attributes.signature_count);
 
-    var sign_link = "https://petition.parliament.uk/petitions/" + current_petition.data.id + "/signatures/new";
-    var count_html = "<span id=\"data_count\">" + count + "</span>";
-    var sign_html = "<a class=\"flat_button sign\" href='" + sign_link + "'><i class=\"fa fa-pencil\"></i> Sign Petition</a>";
+    var sign_link = 'https://petition.parliament.uk/petitions/' + current_petition.data.id + '/signatures/new';
+    var count_html = '<span class="data_count">' + count + '</span>';
+    var sign_html = '<a class="flat_button sign" href="' + sign_link + '"><i class="fa fa-pencil"></i> Sign Petition</a>';
 
-    $('#petition_info').append(
-        $('<tr></tr>').html("<div id=\"petition_action\">" + current_petition.data.attributes.action + "<div>")
-    );
-    $('#petition_info').append(
-      $('<tr></tr>').html("</br><div>" + count_html + " <span id=\"signatures\">signatures</span></div>")
-    );
-    $('#petition_info').append(
-      $('<tr></tr>').html("</br>" + sign_html)
-    );
+    var petition_details =
+      '<div class="petition-details">' +
+        '<h2>' + current_petition.data.attributes.action + '</h2>' +
+        '<div>' + count_html + ' <span class="signatures">signatures</span></div>' +
+        '<div>' + sign_html +'</div>' +
+      '</div>';
+
+    $('#petition_info .petition-details').replaceWith(petition_details);
     $('#petition_info').show();
 }
 
