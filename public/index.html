@@ -51,18 +51,19 @@
 
               <details class="petition-choice">
                 <summary class="flat_button">Show a different petition</summary>
+                <div>
+                  <div class="choice-row">
+                    <label for="petition_url">Enter a petition url</label>
+                    <input type="text" id="petition_url" placeholder="https://petitions.parliament.uk/petitions/105991">
+                    <button class="flat_button" type="button" id="petition_button">and show it</button>
+                  </div>
 
-                <div class="choice-row">
-                  <label for="petition_url">Enter a petition url</label>
-                  <input type="text" id="petition_url" placeholder="https://petitions.parliament.uk/petitions/105991">
-                  <button class="flat_button" type="button" id="petition_button">and show it</button>
-                </div>
+                  <p class="choice-row">Or</p>
 
-                <p class="choice-row">Or</p>
-
-                <div class="choice-row">
-                  <label for="petition_dropdown" id="select_text">Choose a popular Petition</label>
-                  <select name="petition" id="petition_dropdown"></select>
+                  <div class="choice-row">
+                    <label for="petition_dropdown" id="select_text">Choose a popular Petition</label>
+                    <select name="petition" id="petition_dropdown"></select>
+                  </div>
                 </div>
               </details>
             </section>
@@ -129,11 +130,13 @@
               <div class="controls-row">
                 <details>
                   <summary class="flat_button" tabindex="8" title="Choose map area">Choose map area</summary>
-                  <label class="inline" title="Show full Great Britain map"><input type="radio" name="area" value="gb" checked tabindex="9">Great Britain</label>
-                  <label class="inline" title="Show only England map"><input type="radio" name="area" value="eng" tabindex="9">England</label>
-                  <label class="inline" title="Show only Scotland map"><input type="radio" name="area" value="sco" tabindex="9">Scotland</label>
-                  <label class="inline" title="Show only Wales map"><input type="radio" name="area" value="wal" tabindex="9">Wales</label>
-                  <label class="inline" title="Show only London map"><input type="radio" name="area" value="lon" tabindex="9">London</label>
+                  <div>
+                    <label class="inline" title="Show full Great Britain map"><input type="radio" name="area" value="gb" checked tabindex="9">Great Britain</label>
+                    <label class="inline" title="Show only England map"><input type="radio" name="area" value="eng" tabindex="9">England</label>
+                    <label class="inline" title="Show only Scotland map"><input type="radio" name="area" value="sco" tabindex="9">Scotland</label>
+                    <label class="inline" title="Show only Wales map"><input type="radio" name="area" value="wal" tabindex="9">Wales</label>
+                    <label class="inline" title="Show only London map"><input type="radio" name="area" value="lon" tabindex="9">London</label>
+                  </div>
                 </details>
               </div>
             </section>
@@ -149,6 +152,12 @@
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script src="plugins/collapse/jquery.collapse.js"></script>
         <script src="plugins/spin/spin.min.js"></script>
+        <script src="plugins/details/details.polyfill.js"></script>
+
+        <!--[if lt IE 9]>
+          <script src="plugins/html5shiv/html5shiv.js"></script>
+          <script src="plugins/html5shiv/html5shiv-printshiv.js"></script>
+        <![endif]-->
 
         <script src="js/map.js"></script>
         <script src="js/form.js"></script>
