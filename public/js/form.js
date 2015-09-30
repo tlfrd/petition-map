@@ -39,11 +39,11 @@ $(document).ready(function() {
 
         load_mp_data();
 
-        prepareInitialPetitionAndView();
+        preparePetitionAndView();
     });
 });
 
-function prepareInitialPetitionAndView() {
+function preparePetitionAndView() {
   var variables = getURLVariables(),
       area,
       petition_id;
@@ -109,7 +109,7 @@ function load_petition(petition_id, is_url) {
 
     $.getJSON(petition + ".json", function (data) {
         current_petition = data;
-        display_petition_info(petition_id);
+        display_petition_info();
         reload_map();
     })
     .fail(function() {
@@ -141,6 +141,7 @@ function change_area() {
     spinner.spin(target);
     reset();
     reload_map();
+    pushstateHandler();
 }
 
 function reload_map() {
@@ -160,6 +161,7 @@ $("#petition_dropdown").on('change', function() {
     var petition_id = $("#petition_dropdown").val()
 
     load_petition(petition_id, false);
+    pushstateHandler();
 });
 
 $("#constituency").on('change', function() {
@@ -191,5 +193,47 @@ $('#petition_button').on('click', function() {
     load_petition(petition_url, true);
 
     recolour_map();
+    pushstateHandler();
 });
 
+function popstateHandler() {
+  if (history.state && (history.state.area || history.state.petitionId)) {
+    preparePetitionAndView();
+  }
+};
+
+function buildCurrentState() {
+  var area = $("input[name='area']:checked").val(),
+    state = {};
+  if (current_petition !== undefined) {
+    state.petition = current_petition.data.id;
+  }
+  if (area !== undefined) {
+    state.area = area;
+  }
+  return state;
+}
+
+function buildCurrentURL(state) {
+  var new_url = document.createElement('a'),
+    search = '?';
+
+  for(key in state) {
+    search += '' + key + '=' + encodeURIComponent(state[key]) + '&';
+  }
+
+  new_url.href = window.location.href
+  new_url.search = search.slice(0,-1);
+
+  return new_url.href;
+}
+
+function pushstateHandler() {
+  var state = buildCurrentState();
+  if (history.pushState) {
+    var url = buildCurrentURL(state);
+    history.pushState(state, '', url);
+  }
+};
+
+$(window).on('popstate', popstateHandler);
