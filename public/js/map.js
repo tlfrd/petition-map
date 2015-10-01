@@ -43,20 +43,21 @@
       g = svg.append("g");
   }
 
-  function highlightConstituencyOnMap(constituency) {
+  function highlightConstituencyOnMap(_event, constituency) {
       var mpForConstituency = PetitionMap.mp_data[constituency.id],
         party_class = strip_whitespace(mpForConstituency.party);
       deselect_party_colours();
+      d3.select('.selected_boundary').classed('selected_boundary', false)
       d3.select("#" + constituency.id).classed(party_class, true);
       d3.select("#" + constituency.id).classed("selected_boundary", true);
   }
 
   $(window).on('petitionmap:constituency-on', highlightConstituencyOnMap);
 
-  function dehighlightConstituencyOnMap(constituency) {
-      var party_class = strip_whitespace(PetitionMap.mp_data[constituency.id].party);
-      d3.select("#" + constituency.id).classed(party, false);
-      d3.select("#" + constituency.id).classed("selected_boundary", false);
+  function dehighlightConstituencyOnMap(_event, constituency) {
+      //var party_class = strip_whitespace(PetitionMap.mp_data[constituency.id].party);
+      //d3.select("#" + constituency.id).classed(party_class, false);
+      //d3.select("#" + constituency.id).classed("selected_boundary", false);
   }
 
   $(window).on('petitionmap:constituency-off', dehighlightConstituencyOnMap);
