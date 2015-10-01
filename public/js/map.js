@@ -2,6 +2,7 @@
   PetitionMap.current_petition = PetitionMap.current_petition || undefined;
   PetitionMap.mp_data = PetitionMap.mp_data || undefined;
   PetitionMap.current_area = PetitionMap.current_area || undefined;
+  PetitionMap.signature_buckets = PetitionMap.signature_buckets || undefined;
 
   var width, height;
 
@@ -243,71 +244,19 @@
   }
 
   function recolourMap() {
-    var highest_count = getHighestCount(),
-      slices = drawSlices(highest_count);
-    colourClasses(slices);
+    colourConstituencies(PetitionMap.signature_buckets);
   }
 
-  function getHighestCount() {
-    var highest_count = 0,
-      constituencies = PetitionMap.current_petition.data.attributes.signatures_by_constituency;
-
-    $.each(constituencies, function (index, item) {
-      if (item.signature_count >= highest_count) {
-          highest_count = item.signature_count;
-      }
-    });
-
-    return highest_count;
-  }
-
-  function drawSlices(highest_count) {
-    var goalBinSize = Math.floor(highest_count / 8)
-    var roundBy = Math.pow(10, Math.floor(goalBinSize.toString().length / 2))
-    var binSize = Math.round(goalBinSize/ roundBy) * roundBy;
-
-    slices = {};
-    for (i = 0; i <= 8; i++) {
-      slices[i] = i * Math.round(goalBinSize / roundBy) * roundBy;
-    }
-
-    for (i = 0; i <= 8; i++) {
-      $('#t' + (i+1)).html("");
-      if (i === 0) {
-        $('#t' + (i+1)).html("1 - " +  slices[i + 1]);
-      } else if (i === 7) {
-        $('#t' + (i + 1)).html(slices[i] + " +");
-      } else {
-        $('#t' + (i + 1)).html(slices[i] + " - " +  slices[i + 1]);
-      }
-    }
-
-    return slices;
-  }
-
-  function colourClasses(slices) {
+  function colourConstituencies(heatmap) {
     var constituencies = PetitionMap.current_petition.data.attributes.signatures_by_constituency;
 
     d3.selectAll(".coloured").attr("class", "area");
     $.each(constituencies, function (index, item) {
       var id = "#" + item.ons_code;
-      var index = placeInArray(slices, item.signature_count);
+      var index = heatmap.bucketFor(item.signature_count);
       var colour_class = "c" + index + " coloured";
-      d3.select(id)
-          .attr("class", colour_class);
+      d3.select(id).attr("class", colour_class);
     });
-  }
-
-  function placeInArray(slices, count) {
-    var slice = slices[1];
-    for (i = 0; i < 8; i++) {
-      if (count >= slices[i] && count < (slices[i] + slice)) {
-          return i+1;
-      }
-      if (count >= slice * 8) {
-          return 8;
-      }
-    }
   }
 
   PetitionMap.loadMapData = loadMapData;

@@ -2,6 +2,7 @@
   PetitionMap.current_petition = PetitionMap.current_petition || undefined;
   PetitionMap.mp_data = PetitionMap.mp_data || undefined;
   PetitionMap.current_area = PetitionMap.current_area || undefined;
+  PetitionMap.signature_buckets = PetitionMap.signature_buckets || undefined;
 
   var ui_hidden = false,
     spinnerOpts = {
@@ -129,6 +130,8 @@
     $.getJSON(petitionUrl + '.json')
       .done(function (data) {
         PetitionMap.current_petition = data;
+        PetitionMap.signature_buckets = SignatureBuckets(data);
+        updateKey(PetitionMap.signature_buckets.buckets);
         $.when(reloadMap()).then(function () {
           deferredPetitionLoadedAndDrawn.resolve();
         }, function() {
@@ -141,6 +144,53 @@
       });
 
     return deferredPetitionLoadedAndDrawn;
+  }
+
+  function updateKey(fromBuckets) {
+    $('#t1').html("1 - " +  fromBuckets[1]);
+    for (i = 1; i <= 6; i++) {
+      $('#t' + (i + 1)).html((fromBuckets[i]+1) + " - " +  fromBuckets[i + 1]);
+    }
+    $('#t8').html((fromBuckets[7]+1) + " +");
+  }
+
+  function SignatureBuckets(fromPetition) {
+    function getHighestCount(fromConstituencies) {
+      var highest_count = 0;
+
+      $.each(fromConstituencies, function (index, item) {
+        if (item.signature_count >= highest_count) {
+          highest_count = item.signature_count;
+        }
+      });
+
+      return highest_count;
+    }
+
+    function extractBuckets(highestCount) {
+      var goalBinSize = Math.floor(highestCount / 8)
+      var roundBy = Math.pow(10, Math.floor(goalBinSize.toString().length / 2))
+      var binSize = Math.round(goalBinSize/ roundBy) * roundBy;
+
+      var buckets = {};
+      for (i = 0; i <= 8; i++) {
+        buckets[i] = i * binSize;
+      }
+
+      return buckets;
+    }
+
+    return {
+      buckets: extractBuckets(getHighestCount(fromPetition.data.attributes.signatures_by_constituency)),
+      bucketFor: function(count) {
+        for(var i = 0; i < 8; i++) {
+          if (count <= this.buckets[i]) {
+            return i;
+          }
+        }
+        return 8;
+      }
+    }
   }
 
   function displayPetitionInfo() {
