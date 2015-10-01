@@ -253,19 +253,18 @@ function redraw() {
 }
 
 // loads data from the given file and redraws and recolours the map
-function load_data(filename, u) {
-    units = u;
-    var f = filename;
+function loadData(filename, new_units) {
+  units = new_units;
 
-    d3.json(f, function(error, b) {
-        if (error) return console.error(error);
-        boundaries = b;
-        redraw();
-        recolour_map();
-        display_petition_info();
-        $('#key').fadeIn();
-        spinner.stop();
-        interpolate_zoom_and_pan(translate_saved, scale_saved);
+  return $.getJSON(filename)
+    .done(function(data) {
+      boundaries = data;
+      redraw();
+      recolour_map();
+      interpolate_zoom_and_pan(translate_saved, scale_saved);
+    })
+    .fail(function(error) {
+      console.error(error);
     });
 }
 
