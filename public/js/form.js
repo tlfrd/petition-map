@@ -1,6 +1,7 @@
 (function($, PetitionMap) {
   PetitionMap.current_petition = PetitionMap.current_petition || undefined;
   PetitionMap.mp_data = PetitionMap.mp_data || undefined;
+  PetitionMap.current_area = PetitionMap.current_area || undefined;
 
   var ui_hidden = false,
     spinnerOpts = {
@@ -64,6 +65,7 @@
       }
     }
 
+    PetitionMap.current_area = area;
     $('input[name=area][value=' + area + ']').prop('checked',true);
     $('#petition_dropdown option[value=' + petition_id + ']').prop('selected', true);
     return loadPetition(petition_id, false);
@@ -163,6 +165,7 @@
 
   function changeArea() {
     spinner.spin(target);
+    PetitionMap.current_area = $("input[name='area']:checked").val();
     PetitionMap.resetMapState();
     $.when(reloadMap()).then(function() {
       pushstateHandler();
@@ -172,8 +175,7 @@
   $("input[name='area']").on('change', changeArea);
 
   function reloadMap() {
-    var area = $("input[name='area']:checked").val();
-      dataFile = 'json/uk/' + area + '/topo_wpc.json';
+    var dataFile = 'json/uk/' + PetitionMap.current_area + '/topo_wpc.json';
     return $.when(PetitionMap.loadMapData(dataFile, 'wpc')).then(function() {
       displayPetitionInfo();
       $('#key').fadeIn();
@@ -277,13 +279,12 @@
   $('#hide_ui').on('click', toggleFormUI);
 
   function buildCurrentState() {
-    var area = $("input[name='area']:checked").val(),
-      state = {};
+    var state = {};
     if (PetitionMap.current_petition !== undefined) {
       state.petition = PetitionMap.current_petition.data.id;
     }
-    if (area !== undefined) {
-      state.area = area;
+    if (PetitionMap.current_area !== undefined) {
+      state.area = PetitionMap.current_area;
     }
     return state;
   }

@@ -1,6 +1,7 @@
 (function($, d3, PetitionMap) {
   PetitionMap.current_petition = PetitionMap.current_petition || undefined;
   PetitionMap.mp_data = PetitionMap.mp_data || undefined;
+  PetitionMap.current_area = PetitionMap.current_area || undefined;
 
   var width, height;
 
@@ -181,10 +182,9 @@
     var s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
     var t;
 
-    var area = $("input[name='area']:checked").val();
-    if (area === "lon") {
+    if (PetitionMap.current_area === "lon") {
       t = [((width - s * (b[1][0] + b[0][0])) / 2.25), (height - s * (b[1][1] + b[0][1])) / 2];
-    } else if (area === "gb") {
+    } else if (PetitionMap.current_area === "gb") {
       t = [((width - s * (b[1][0] + b[0][0])) / 1.95), (height - s * (b[1][1] + b[0][1])) / 2];
     } else {
       t = [((width - s * (b[1][0] + b[0][0])) / 1.85), (height - s * (b[1][1] + b[0][1])) / 2];
