@@ -52,15 +52,22 @@ function preparePetitionAndView() {
     petition_id = $("#petition_dropdown").val();
   }
 
+  area = 'gb';
   if (variables.area !== undefined) {
-    area = variables.area;
-  } else {
-    area = 'gb';
+    if (possibleAreas().indexOf(variables.area) !== -1) {
+      area = variables.area;
+    }
   }
 
-  $("input[name='area'][value=" + variables.area + "]").prop("checked",true);
-  $('#petition_dropdown').val(petition_id);
-  load_petition(petition_id, false);
+  $('input[name=area][value=' + area + ']').prop('checked',true);
+  $('#petition_dropdown option[value=' + petition_id + ']').prop('selected', true);
+  loadPetition(petition_id, false);
+}
+
+function possibleAreas() {
+  var possibleAreas = []
+  $.each($('input[name=area]'), function(idx, elem) { possibleAreas[idx] = $(elem).attr('value'); });
+  return possibleAreas;
 }
 
 function getURLVariables() {
