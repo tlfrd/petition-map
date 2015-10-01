@@ -1,8 +1,7 @@
 var current_petition,
-  mp_data,
-  ui_hidden = false;
-
-var opts = {
+  mp_data, // NOTE: used in map.js
+  ui_hidden = false,
+  spinnerOpts = {
     lines: 13,
     length: 28,
     width: 14,
@@ -22,10 +21,9 @@ var opts = {
     left: '50%',
     shadow: false,
     hwaccel: false
-}
-
-var target = document.getElementById('spinner_area')
-var spinner = new Spinner(opts).spin(target);
+  },
+  target = document.getElementById('spinner_area'),
+  spinner = new Spinner(spinnerOpts).spin(target);
 
 $(document).ready(function() {
     $.getJSON("https://petition.parliament.uk/petitions.json?state=open", function (data) {
