@@ -38,25 +38,6 @@ th, td {
   padding: 5px 10px;
 }
 
-#help {
-  font-size: 0.9em;
-  overflow: auto;
-  max-height: 200px;
-  padding-bottom: 20px;
-}
-
-#licence {
-  font-size: 0.6em;
-}
-
-#geojson_link {
-  color: #c29fd1;
-}
-
-#geojson_link:hover {
-  color: white;
-}
-
 main {
   width: 100%;
   position: absolute;
@@ -228,11 +209,12 @@ header h1 {
   font-size: 1.5em;
   margin-bottom: 0em;
 }
-header h1 .built-by {
+
+h1 .built-by {
   display: block  ;
   font-size: 0.6em;
 }
-header h1 .built-by a {
+h1 .built-by a {
   font-weight: bold;
 }
 
@@ -251,14 +233,50 @@ footer {
   height: 3em;
 }
 
-#help, #licence {
-  display: none;
+#about {
+  background-color: #812A80;
+  color: white;
+  position: fixed;
+  overflow: scroll;
+  top: 5.5em; /* header height: 3em + 2em * 0.7 */
+  bottom: 6em; /* footer height: 3em + 2em * 0.8 */
+  left: 2em;
+  right: 2em;
+  padding: 2em;
+}
+
+#about div {
+  margin-bottom: 2em;
+}
+
+#about .help {
+  font-size: 0.9em;
+}
+
+#about .licence {
+  border-top: 1px solid #c29fd1;
+  padding-top: 2em;
+  font-size: 0.6em;
+}
+
+#about .licence a {
+  color: #c29fd1;
+}
+
+#about .licence a:hover {
+  color: white;
 }
 
 #hide_ui {
   font-size: 0.8em;
   float: right;
   margin-right: 1.25em;
+}
+
+footer .about-button {
+  font-size: 0.8em;
+  float: left;
+  margin-left: 1.25em;
 }
 
 #controls {

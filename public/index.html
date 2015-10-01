@@ -21,27 +21,9 @@
             <label for="constituency">Find constituency</label>
             <select name="constituency" id="constituency"></select>
           </div>
+          <button class="flat_button about-button">About</button>
           <button class="flat_button" id="hide_ui">Hide UI</button>
         </footer>
-
-        <section id="help">
-            <h2>Where is Northern Ireland?</h2>
-            <p>Unfortunately, the data for NI is not available at this time due to licensing issues.</p>
-            <h2>I can't find a petition in the drop down list!</h2>
-            <p>You can generate a heatmap for any petition by entering the url from the Government Petitions site in the entry box above.</p>
-        </section>
-
-        <section id="licence">
-            <p>
-                <a id="geojson_link" href="https://github.com/martinjc/UK-GeoJson">
-                    GeoJSON and TopoJSON UK Boundary Data
-                </a>
-                by Martin Chorley is licensed under a Creative Commons Attribution 4.0 International License.
-            </p></br>
-            <p>
-                Contains Ordnance Survey, Office of National Statistics and National Records Scotland data © Crown copyright and database right [2014]. Ordnance Survey data covered by OS OpenData Licence.
-            </p>
-        </section>
 
         <main>
             <section id="constituency_info">
@@ -145,6 +127,31 @@
                 </div>
             </section>
         </main>
+
+        <section id="about" hidden>
+          <h1>Petition Map <span class="built-by">built by <a href="https://www.unboxedconsulting.com/">Unboxed</a></span></h1>
+
+          <div class="help">
+            <h2>Where is Northern Ireland?</h2>
+            <p>Unfortunately, the data for NI is not available at this time due to licensing issues.</p>
+
+            <h2>I can't find a petition in the drop down list!</h2>
+            <p>You can generate a heatmap for any petition by copying its url from the <a href="https://petition.parliament.uk/">UK Government and Parliament site</a> and pasting it into the entry box in the "Show a different petition" section to the bottom right of the map.</p>
+          </div>
+
+          <div class="licence">
+            <p>
+                <a href="https://github.com/martinjc/UK-GeoJson">GeoJSON and TopoJSON UK Boundary Data</a>
+                by Martin Chorley is licensed under a Creative Commons Attribution 4.0 International License.
+            </p>
+            <p>
+                Contains Ordnance Survey, Office of National Statistics and National Records Scotland data © Crown copyright and database right [2014]. Ordnance Survey data covered by OS OpenData Licence.
+            </p>
+          </div>
+
+          <button class="flat_button about-button">Close this section</button>
+
+        </section>
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>

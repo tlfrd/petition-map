@@ -328,6 +328,12 @@
 
   $('#hide_ui').on('click', toggleFormUI);
 
+  function toggleAboutUI() {
+    $('#about').toggle();
+  }
+
+  $('.about-button').on('click', toggleAboutUI);
+
   function buildCurrentState() {
     var state = {};
     if (PetitionMap.current_petition !== undefined) {
