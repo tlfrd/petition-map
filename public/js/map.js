@@ -6,7 +6,7 @@
 
   var active = d3.select(null);
 
-  var zoom = d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
+  var zoom = d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", applyZoomAndPan);
 
   var projection, svg, path, g;
   var boundaries, units;
@@ -82,7 +82,7 @@
         zoom
           .scale(iScale(t))
           .translate(iTranslate(t));
-        zoomed();
+        applyZoomAndPan();
       };
     });
   }
@@ -117,7 +117,7 @@
 
   $('.zoom').on('click', zoomButton);
 
-  function zoomed() {
+  function applyZoomAndPan() {
     svg.attr("transform", "translate(" + zoom.translate() + ")scale(" + zoom.scale() + ")");
   }
 
@@ -222,7 +222,7 @@
     init(width, height);
     draw(boundaries);
     recolourMap();
-    svg.attr("transform", "translate(" + translate_saved + ")scale(" + scale_saved + ")");
+    applyZoomAndPan();
   }
 
   // when the window is resized, redraw the map
@@ -236,8 +236,6 @@
       .done(function(data) {
         boundaries = data;
         redraw();
-        recolourMap();
-        interpolateZoomAndPan(translate_saved, scale_saved);
       })
       .fail(function(error) {
         console.error(error);
