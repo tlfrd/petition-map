@@ -25,20 +25,23 @@ var current_petition,
   target = document.getElementById('spinner_area'),
   spinner = new Spinner(spinnerOpts).spin(target);
 
-$(document).ready(function() {
-    $.getJSON("https://petition.parliament.uk/petitions.json?state=open", function (data) {
-        var petitions = data.data;
-        $.each(petitions, function (index, item) {
-            var dropdown_text = item.attributes.action;
-            $('#petition_dropdown').append(
-                $('<option></option>').val(item.id).html(dropdown_text)
-            );
-        });
-
-        load_mp_data();
-
-        preparePetitionAndView();
+function populatePetitionDropdown() {
+  return $.getJSON("https://petition.parliament.uk/petitions.json?state=open")
+    .done(function (data) {
+      var petitions = data.data;
+      $.each(petitions, function (index, item) {
+          var dropdown_text = item.attributes.action;
+          $('#petition_dropdown').append(
+              $('<option></option>').val(item.id).html(dropdown_text)
+          );
+      });
     });
+};
+
+$(document).ready(function() {
+  $.when(populatePetitionDropdown(), loadMPData()).then(function() {
+    preparePetitionAndView();
+  });
 });
 
 function preparePetitionAndView() {
@@ -61,7 +64,7 @@ function preparePetitionAndView() {
 
   $('input[name=area][value=' + area + ']').prop('checked',true);
   $('#petition_dropdown option[value=' + petition_id + ']').prop('selected', true);
-  loadPetition(petition_id, false);
+  return loadPetition(petition_id, false);
 }
 
 function possibleAreas() {
@@ -85,124 +88,147 @@ function getURLVariables() {
   return variables;
 };
 
-function load_mp_data() {
-    $.getJSON("json/mps/constituency_party_ons.json", function (data) {
-        mp_data = data;
-        var sorted_mp_data = []
-        for (a in data) {
-            sorted_mp_data.push({id: a, text: data[a].constituency}) };
-        sorted_mp_data.sort(function(a, b) {
-            return a.text.localeCompare(b.text);
-        }),
-        $.each(sorted_mp_data,
-            function (_idx, item) {
-                $('#constituency').append(
-                    $('<option></option>').val(item.id).html(item.text)
-                );
-            }
+function loadMPData() {
+  return $.getJSON("json/mps/constituency_party_ons.json")
+    .done(function (data) {
+      mp_data = data;
+      var sorted_mp_data = []
+      for (a in data) {
+        sorted_mp_data.push({id: a, text: data[a].constituency})
+      };
+      sorted_mp_data.sort(function(a, b) {
+        return a.text.localeCompare(b.text);
+      }),
+      $.each(sorted_mp_data, function (_idx, item) {
+        $('#constituency').append(
+            $('<option></option>').val(item.id).html(item.text)
         );
+      });
     });
 }
 
-function load_petition(petition_id, is_url) {
-    var petition;
-    if (is_url) {
-        petition = petition_id;
-    } else {
-        petition = "https://petition.parliament.uk/petitions/" + petition_id;
-    }
+function getPetitionUrlFromReference(petitionReference) {
+  petitionReference = petitionReference.trim();
+  if (petitionReference.match(/^https:\/\/petition\.parliament\.uk\/petitions\/\d+/i)) {
+    return petitionReference.replace(/(\/|\.json)$/,'');
+  } else if (petitionReference.match(/^\d+$/)) {
+    return 'https://petition.parliament.uk/petitions/' + petitionReference;
+  } else {
+    return ''
+  }
+}
 
-    $.getJSON(petition + ".json", function (data) {
-        current_petition = data;
-        display_petition_info();
-        reload_map();
+function loadPetition(petitionReference) {
+  var petitionUrl = getPetitionUrlFromReference(petitionReference),
+    deferredPetitionLoadedAndDrawn = new $.Deferred();
+
+  $.getJSON(petitionUrl + '.json')
+    .done(function (data) {
+      current_petition = data;
+      $.when(reloadMap()).then(function () {
+        deferredPetitionLoadedAndDrawn.resolve();
+      }, function() {
+        deferredPetitionLoadedAndDrawn.reject();
+      });
     })
     .fail(function() {
-        alert("Petition not found!");
+      alert('Petition not found! (Looking for: '+petitionReference+')');
+      deferredPetitionLoadedAndDrawn.reject();
     });
+
+  return deferredPetitionLoadedAndDrawn;
 }
 
-function display_petition_info() {
-    $('#petition_info').hide();
+function displayPetitionInfo() {
+  $('#petition_info').hide();
 
-    var count = number_with_commas(current_petition.data.attributes.signature_count);
+  var count = number_with_commas(current_petition.data.attributes.signature_count);
 
-    var sign_link = 'https://petition.parliament.uk/petitions/' + current_petition.data.id + '/signatures/new';
-    var count_html = '<p class="signatures_count"><span class="data">' + count + '</span> signatures</p>';
-    var sign_html = '<a class="flat_button sign" href="' + sign_link + '"><i class="fa fa-pencil"></i> Sign Petition</a>';
+  var sign_link = 'https://petition.parliament.uk/petitions/' + current_petition.data.id + '/signatures/new';
+  var count_html = '<p class="signatures_count"><span class="data">' + count + '</span> signatures</p>';
+  var sign_html = '<a class="flat_button sign" href="' + sign_link + '"><i class="fa fa-pencil"></i> Sign Petition</a>';
 
-    var petition_details =
-      '<div class="petition-details">' +
-        '<h2>' + current_petition.data.attributes.action + '</h2>' +
-        count_html +
-        '<div>' + sign_html +'</div>' +
-      '</div>';
+  var petition_details =
+    '<div class="petition-details">' +
+      '<h2>' + current_petition.data.attributes.action + '</h2>' +
+      count_html +
+      '<div>' + sign_html +'</div>' +
+    '</div>';
 
-    $('#petition_info .petition-details').replaceWith(petition_details);
-    $('#petition_info').show();
+  $('#petition_info .petition-details').replaceWith(petition_details);
+  $('#petition_info').show();
 }
 
-function change_area() {
-    spinner.spin(target);
-    reset();
-    reload_map();
+function changeArea() {
+  spinner.spin(target);
+  reset();
+  $.when(reloadMap()).then(function() {
     pushstateHandler();
+  });
 }
 
-function reload_map() {
+$("input[name='area']").on('change', changeArea);
+
+function reloadMap() {
   var area = $("input[name='area']:checked").val();
     dataFile = 'json/uk/' + area + '/topo_wpc.json';
   return $.when(loadData(dataFile, 'wpc')).then(function() {
-    display_petition_info();
+    displayPetitionInfo();
     $('#key').fadeIn();
     spinner.stop();
   });
 }
 
+function showPetitionFromDropdown() {
+  spinner.spin(target);
 
+  var petition_id = $("#petition_dropdown").val()
 
-$("input[name='area']").on('change', change_area);
-
-$("#petition_dropdown").on('change', function() {
-    spinner.spin(target);
-
-    var petition_id = $("#petition_dropdown").val()
-
-    load_petition(petition_id, false);
+  $.when(loadPetition(petition_id)).then(function() {
     pushstateHandler();
-});
+  });
+};
 
-$("#constituency").on('change', function() {
-    var ons_code = $("#constituency").val()
+$("#petition_dropdown").on('change', showPetitionFromDropdown);
 
-    var constituency_data = {
-        "id": ons_code
-    }
+function showPetitionFromUrlInput() {
+  spinner.spin(target);
 
-    select(constituency_data);
-});
+  var petition_url = $('#petition_url').val()
 
-$('#hide_ui').on('click', function() {
-    if (ui_hidden) {
-        $('#petition_info').fadeIn();
-        $('#key').fadeIn();
-        $('#hide_ui').html("Hide UI");
-        ui_hidden = false;
-    } else {
-        $('#petition_info').fadeOut();
-        $('#key').fadeOut();
-        $('#hide_ui').html("Show UI");
-        ui_hidden = true;
-    }
-});
-
-$('#petition_button').on('click', function() {
-    petition_url = $('#petition_url').val()
-    load_petition(petition_url, true);
-
-    recolour_map();
+  $.when(loadPetition(petition_url)).then(function() {
     pushstateHandler();
-});
+  });
+};
+
+$('#petition_button').on('click', showPetitionFromUrlInput);
+
+function highlightConstituencyFromDropdown() {
+  var ons_code = $("#constituency").val(),
+    constituency_data = {
+      "id": ons_code
+    };
+
+  select(constituency_data);
+};
+
+$("#constituency").on('change', highlightConstituencyFromDropdown);
+
+function toggleFormUI() {
+  if (ui_hidden) {
+    $('#petition_info').fadeIn();
+    $('#key').fadeIn();
+    $('#hide_ui').html("Hide UI");
+    ui_hidden = false;
+  } else {
+    $('#petition_info').fadeOut();
+    $('#key').fadeOut();
+    $('#hide_ui').html("Show UI");
+    ui_hidden = true;
+  }
+};
+
+$('#hide_ui').on('click', toggleFormUI);
 
 function buildCurrentState() {
   var area = $("input[name='area']:checked").val(),
