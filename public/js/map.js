@@ -43,47 +43,23 @@
       g = svg.append("g");
   }
 
-  function selectConstituency(constituency) {
+  function highlightConstituencyOnMap(constituency) {
       var mpForConstituency = PetitionMap.mp_data[constituency.id],
         party_class = strip_whitespace(mpForConstituency.party);
       deselect_party_colours();
       d3.select("#" + constituency.id).classed(party_class, true);
       d3.select("#" + constituency.id).classed("selected_boundary", true);
-
-      $('#constituency_info').fadeIn("fast");
-      $('#constituency_info').html("");
-      var name, mp, count, party,
-        data_found = false;
-      $.each(PetitionMap.current_petition.data.attributes.signatures_by_constituency, function(i, v) {
-          if (v.ons_code === constituency.id) {
-              name = v.name;
-              mp = v.mp;
-              party = mpForConstituency.party;
-              count = v.signature_count;
-              data_found = true;
-              return;
-          }
-      });
-      if (!data_found) {
-          name = mpForConstituency.constituency;
-          mp = mpForConstituency.mp;
-          party = mpForConstituency.party;
-          count = "0";
-      }
-
-      $('#constituency_info').append('<h2>' + name + "</h2>");
-      $('#constituency_info').append('<p class="mp">' + mp + '</p>');
-      $('#constituency_info').append('<p class="party">' + party + '</p>');
-      $('#constituency_info').append('<p class="signatures_count"><span class="data">' + numberWithCommas(count) + '</span> signatures</p>');
   }
 
-  function deselectConstituency(constituency) {
+  $(window).on('petitionmap:constituency-on', highlightConstituencyOnMap);
+
+  function dehighlightConstituencyOnMap(constituency) {
       var party_class = strip_whitespace(PetitionMap.mp_data[constituency.id].party);
-      d3.select("#" + constituency.id).classed(party_class, false);
+      d3.select("#" + constituency.id).classed(party, false);
       d3.select("#" + constituency.id).classed("selected_boundary", false);
-
-      $('#constituency_info').show();
   }
+
+  $(window).on('petitionmap:constituency-off', dehighlightConstituencyOnMap);
 
   function deselect_party_colours() {
       $.each(parties, function (index, item) {
@@ -94,10 +70,6 @@
 
   function strip_whitespace(string) {
       return string.replace(/[^a-zA-Z]/g, '');
-  }
-
-  function numberWithCommas(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   function interpolate_zoom_and_pan(translate, scale) {
@@ -198,7 +170,6 @@
 
   d3.selectAll('.pan').on('click', pan_button);
 
-
   // draw our map on the SVG element
   function draw(boundaries) {
 
@@ -232,8 +203,8 @@
           .attr("id", function(d) {return d.id})
           .attr("d", path)
           .attr('vector-effect', 'non-scaling-stroke')
-          .on("mouseenter", function(d){ return selectConstituency(d) })
-          .on("mouseleave", function(d){ return deselectConstituency(d) });
+          .on("mouseenter", function(constituency){ $(window).trigger('petitionmap:constituency-on', constituency); })
+          .on("mouseleave", function(constituency){ $(window).trigger('petitionmap:constituency-off', constituency); });
 
       // add a boundary between areas
       g.append("path")
@@ -254,6 +225,9 @@
       recolour_map();
       svg.attr("transform", "translate(" + translate_saved + ")scale(" + scale_saved + ")");
   }
+
+  // when the window is resized, redraw the map
+  $(window).on('resize', redraw);
 
   // loads data from the given file and redraws and recolours the map
   function loadMapData(filename, new_units) {
@@ -341,12 +315,7 @@
       }
   }
 
-  // when the window is resized, redraw the map
-  window.addEventListener('resize', redraw);
-
-  PetitionMap.selectConstituency = selectConstituency;
   PetitionMap.loadMapData = loadMapData;
   PetitionMap.resetMapState = resetMapState;
-  PetitionMap.numberWithCommas = numberWithCommas;
 
 })(window.jQuery, window.d3, window.PetitionMap = window.PetitionMap || {});

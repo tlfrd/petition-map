@@ -144,7 +144,7 @@
   function displayPetitionInfo() {
     $('#petition_info').hide();
 
-    var count = PetitionMap.numberWithCommas(PetitionMap.current_petition.data.attributes.signature_count);
+    var count = numberWithCommas(PetitionMap.current_petition.data.attributes.signature_count);
 
     var sign_link = 'https://petition.parliament.uk/petitions/' + PetitionMap.current_petition.data.id + '/signatures/new';
     var count_html = '<p class="signatures_count"><span class="data">' + count + '</span> signatures</p>';
@@ -211,10 +211,49 @@
         "id": ons_code
       };
 
-    PetitionMap.selectConstituency(constituency_data);
+    $(window).trigger('petitionmap:constituency-on', constituency_data);
   };
 
   $("#constituency").on('change', highlightConstituencyFromDropdown);
+
+  function displayConstituencyInfo(constituency) {
+    var mpForConstituency = PetitionMap.mp_data[constituency.id];
+
+    $('#constituency_info').fadeOut();
+    $('#constituency_info').html("");
+    var name, mp, count, party,
+      data_found = false;
+    $.each(PetitionMap.current_petition.data.attributes.signatures_by_constituency, function(i, v) {
+        if (v.ons_code === constituency.id) {
+            name = v.name;
+            mp = v.mp;
+            party = mpForConstituency.party;
+            count = v.signature_count;
+            data_found = true;
+            return;
+        }
+    });
+    if (!data_found) {
+        name = mpForConstituency.constituency;
+        mp = mpForConstituency.mp;
+        party = mpForConstituency.party;
+        count = "0";
+    }
+
+    $('#constituency_info').append('<h2>' + name + "</h2>");
+    $('#constituency_info').append('<p class="mp">' + mp + '</p>');
+    $('#constituency_info').append('<p class="party">' + party + '</p>');
+    $('#constituency_info').append('<p class="signatures_count"><span class="data">' + numberWithCommas(count) + '</span> signatures</p>');
+    $('#constituency_info').fadeIn();
+  }
+
+  $(window).on('petitionmap:constituency-on', displayConstituencyInfo);
+
+  function hideConstituencyInfo(constituency) {
+    $('#constituency_info').hide();
+  }
+
+  $(window).on('petitionmap:constituency-off', hideConstituencyInfo);
 
   function toggleFormUI() {
     if (ui_hidden) {
@@ -273,5 +312,9 @@
   };
 
   $(window).on('popstate', popstateHandler);
+
+  function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
 })($, window.PetitionMap = window.PetitionMap || {});
