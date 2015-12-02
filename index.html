@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/map.css">
+        <link rel="stylesheet" type="text/css" href="css/party_colours.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="plugins/vex/css/vex.css" />
+        <link rel="stylesheet" href="plugins/vex/css/vex-theme-plain.css" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="Petition Map (by Unboxed)" />
+        <meta property="og:description"   content="Visualise UK Government Petitions" />
+        <meta property="og:image"         content="http://petitionmap.unboxedconsulting.com/images/petitionmap_meta.png" />
+
+        <!-- Google Analytics -->
+        <script async src='//www.google-analytics.com/analytics.js'></script>
+        <script>
+            window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+            ga('create', 'UA-67786153-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        <!-- End Google Analytics -->
+        <title>Petition Map - built by Unboxed</title>
+    </head>
+
+    <body>
+        <div id="support" hidden>
+        </div>
+
+        <header>
+          <h1>Petition Map <span class="built-by">built by <a href="https://www.unboxedconsulting.com/">Unboxed</a></span></h1>
+        </header>
+
+        <footer>
+          <div class="footer-item">
+            <label for="constituency">Find constituency</label>
+            <select name="constituency" id="constituency"></select>
+          </div>
+          <button class="flat_button share-button">Share map</button>
+          <button class="flat_button about-button">About</button>
+          <button class="flat_button hide-ui">Hide UI</button>
+        </footer>
+
+        <main>
+            <section id="constituency_info">
+            </section>
+            <section id="petition_info" hidden>
+              <div class="petition-details"></div>
+
+              <details class="petition-choice">
+                <summary class="flat_button">Show a different petition</summary>
+                <div>
+                  <div class="choice-row">
+                    <label for="petition_url">Enter a petition url</label>
+                    <input type="text" id="petition_url" placeholder="https://petitions.parliament.uk/petitions/105991">
+                    <button class="flat_button" type="button" id="petition_button">and show it</button>
+                  </div>
+
+                  <p class="choice-row">Or</p>
+
+                  <div class="choice-row">
+                    <label for="petition_dropdown" id="select_text">Choose a popular Petition</label>
+                    <select name="petition" id="petition_dropdown"></select>
+                  </div>
+                </div>
+              </details>
+            </section>
+            <section id="key" hidden>
+                <table>
+                    <tr>
+                        <td class="area">&#9608;</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td class="t1">&#9608;</td>
+                        <td id="t1"></td>
+                    </tr>
+                    <tr>
+                        <td class="t2">&#9608;</td>
+                        <td id="t2"></td>
+                    </tr>
+                    <tr>
+                        <td class="t3">&#9608;</td>
+                        <td id="t3"></td>
+                    </tr>
+                    <tr>
+                        <td class="t4">&#9608;</td>
+                        <td id="t4"></td>
+                    </tr>
+                    <tr>
+                        <td class="t5">&#9608;</td>
+                        <td id="t5"></td>
+                    </tr>
+                    <tr>
+                        <td class="t6">&#9608;</td>
+                        <td id="t6"></td>
+                    </tr>
+                    <tr>
+                        <td class="t7">&#9608;</td>
+                        <td id="t7"></td>
+                    </tr>
+                    <tr>
+                        <td class="t8">&#9608;</td>
+                        <td id="t8"></td>
+                    </tr>
+                </table>
+            </section>
+            <section id="controls">
+              <div class="controls-row">
+                <div class="controls-col">
+                  <button class="flat_button zoom" id="zoom_in" tabindex="1" title="zoom map in"><i class="fa fa-plus"></i></button>
+                  <button class="flat_button zoom" id="zoom_out"  tabindex="2" title="zoom map out"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="controls-col">
+                  <button class="flat_button pan row-span" id="pan_west" tabindex="3" title="pan map west"><i class="fa fa-angle-left"></i></button>
+                </div>
+                <div class="controls-col">
+                  <button class="flat_button pan" id="pan_north" tabindex="4" title="pan map north"><i class="fa fa-angle-up"></i></button>
+                  <button class="flat_button pan" id="pan_south" tabindex="5" title="pan map south"><i class="fa fa-angle-down"></i></button>
+                </div>
+                <div class="controls-col">
+                  <button class="flat_button pan row-span" id="pan_east" tabindex="6" title="pan map east"><i class="fa fa-angle-right"></i></button>
+                </div>
+              </div>
+              <div class="controls-row">
+                <button class="flat_button row" id="reset" tabindex="7" title="Reset map zoom &amp; pan">Reset zoom &amp; pan</button>
+              </div>
+              <div class="controls-row">
+                <details>
+                  <summary class="flat_button" tabindex="8" title="Choose map area">Choose map area</summary>
+                  <div>
+                    <label class="inline" title="Show full United Kingdom map"><input type="radio" name="area" value="uk" checked tabindex="9">United Kingdom</label>
+                    <label class="inline" title="Show only England map"><input type="radio" name="area" value="eng" tabindex="9">England</label>
+                    <label class="inline" title="Show only Scotland map"><input type="radio" name="area" value="sco" tabindex="9">Scotland</label>
+                    <label class="inline" title="Show only Wales map"><input type="radio" name="area" value="wal" tabindex="9">Wales</label>
+                    <label class="inline" title="Show only Northern Ireland map"><input type="radio" name="area" value="ni" tabindex="9">Northern Ireland</label>
+                    <label class="inline" title="Show only London map"><input type="radio" name="area" value="lon" tabindex="9">London</label>
+                  </div>
+                </details>
+              </div>
+            </section>
+            <section id="map">
+                <div id="spinner_area">
+                </div>
+            </section>
+        </main>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="plugins/collapse/jquery.collapse.js"></script>
+        <script src="plugins/spin/spin.min.js"></script>
+        <script src="plugins/vex/js/vex.combined.min.js"></script>
+        <script>vex.defaultOptions.className = 'vex-theme-plain';</script>
+        <script src="plugins/details/details.polyfill.js"></script>
+
+        <!--[if lt IE 9]>
+          <script src="plugins/html5shiv/html5shiv.js"></script>
+          <script src="plugins/html5shiv/html5shiv-printshiv.js"></script>
+        <![endif]-->
+
+        <script src="js/map.js"></script>
+        <script src="js/form.js"></script>
+        <script src="js/share.js"></script>
+    </body>
+
+    <section id="share-modal" hidden>
+      <div class="share-panel">
+        <label for="petition-link"><h2>Link</h2></label>
+        <input type="text" name="petition-link" />
+        <h2>Social</h2>
+        <button class="flat_button twitter" alt="Tweet this page">Tweet <i class="fa fa-twitter"></i></button>
+        <button class="flat_button facebook" alt="Share on Facebook">Facebook <i class="fa fa-facebook"></i></button>
+      </div>
+    </section>
+
+    <section id="about-modal" hidden>
+      <div class="about-panel">
+        <h1>Petition Map <span class="built-by">built by <a href="https://www.unboxedconsulting.com/">Unboxed</a></span></h1>
+
+        <div class="help">
+          <h2>I can't find a petition in the drop down list!</h2>
+          <p>You can generate a heatmap for any petition by copying its url from the <a href="https://petition.parliament.uk/">UK Government and Parliament site</a> and pasting it into the entry box in the "Show a different petition" section to the bottom right of the map.</p>
+        </div>
+
+        <div class="licence">
+          <p>
+              <a href="https://github.com/martinjc/UK-GeoJson">GeoJSON and TopoJSON UK Boundary Data</a>
+              by Martin Chorley is licensed under a Creative Commons Attribution 4.0 International License.
+          </p>
+          <p>
+              Contains Ordnance Survey, Office of National Statistics and National Records Scotland data © Crown copyright and database right [2014]. Ordnance Survey data covered by OS OpenData Licence.
+          </p>
+          <p>
+              Contains LPS Intellectual Property Crown copyright and database right [2015]. This information is licensed under the terms of the Open Government Licence.
+          </p>
+        </div>
+      </div>
+    </section>
+
+</html>

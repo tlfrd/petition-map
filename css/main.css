@@ -1,0 +1,404 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,700);
+
+
+/* General */
+
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: white;
+  font-weight: 300;
+  margin: 0em;
+}
+
+h1 {
+  margin: 0 0 20px;
+  font-weight: 300;
+  color: white;
+  font-size: 2.5em;
+}
+
+p, table {
+  margin: 0px;
+}
+
+a {
+  color: white;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 5px 10px;
+}
+
+main {
+  width: 100%;
+  position: absolute;
+  top: 3.5em; /* header height: 3em + 2em * 0.7 */
+  bottom: 4em; /* footer height: 3em + 2em * 0.8 */
+  color: white;
+}
+
+#petition_info {
+  position: absolute;
+  background-color: #812A80;
+  bottom: 1em;
+  left: 1em;
+  font-size: 0.5em;
+  max-width: 20%;
+  padding: 1em;
+}
+
+@media (max-height: 480px) {
+  #petition_info {
+    font-size: 0.3em;
+    max-width: 25%;
+  }
+}
+
+@media (max-height: 360px) {
+  #petition_info {
+    visibility: hidden;
+  }
+}
+
+#constituency_info > * {
+  margin-bottom: 0.5em;
+}
+#constituency_info *:last-child {
+  margin-bottom: 0em;
+}
+#constituency_info h2 {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin-top: 0em;
+}
+
+#petition_info .petition-details > * {
+  margin-bottom: 0.5em;
+}
+#petition_info .petition-details h2 {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin-top: 0em;
+}
+.signatures_count {
+  font-size: 1.5em;
+}
+.signatures_count .data {
+  font-weight: 300;
+  font-size: 1.7em;
+}
+
+#petition_info .petition-choice .choice-row {
+  margin-top: 1em;
+}
+#petition_info .petition-choice label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+#petition_info .petition-choice input[type=text] {
+  width: 92%;
+  padding: 4%;
+  border-width: 0px;
+}
+
+#petition_info .petition-choice select {
+  width: 100%;
+}
+#petition_info .petition-choice button {
+  width: 100%;
+}
+
+#constituency_info {
+  position: absolute;
+  display: none;
+  background-color: #812A80;
+  top: 1em;
+  left: 1em;
+  width: 18%;
+  font-size: 0.5em;
+  padding: 1em;
+}
+
+@media (max-height: 480px) {
+  #constituency_info {
+    width: 35%;
+    font-size: 0.3em;
+  }
+}
+
+#key {
+  width: 100%;
+  position: absolute;
+  color: black;
+  font-weight: 400;
+  background-color: #f6f6f6;
+  opacity: 0.75;
+  top: 1em;
+  right: 1em;
+  max-width: 100px;
+  padding: 0.5em;
+  font-size: 0.5em;
+}
+
+@media (max-height: 480px) {
+  #key {
+    font-size: 0.3em;
+    padding: 2px;
+  }
+}
+
+@media (max-height: 360px) {
+  #key {
+    visibility: hidden;
+  }
+}
+
+#spinner_area {
+  position: fixed;
+  top: 50%;
+  left: 61%;
+}
+
+@media (max-width: 720px) {
+  #spinner_area {
+    left: 50%;
+  }
+}
+
+
+/* Buttons */
+
+
+.flat_button {
+  background-color: #a478c2;
+  display: inline-block;
+  cursor: pointer;
+  color: white;
+  font-size: 1em;
+  padding: 5px 10px;
+  text-decoration: none;
+  border: 0;
+  outline: none;
+}
+
+.flat_button:hover {
+  background-color: #c29fd1;
+}
+
+.twitter {
+  background-color: #00aced;
+}
+
+.twitter:hover {
+  opacity: 0.5;
+}
+
+.facebook {
+  background-color: #3b5998;
+}
+
+.facebook:hover {
+  opacity: 0.5;
+}
+
+#spinner_area {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: #812A80;
+  color: white;
+  font-weight: 300;
+  padding: 1em;
+  overflow: auto;
+  font-size: 0.7em;
+  height: 3em;
+}
+
+header h1 {
+  font-size: 1.5em;
+  margin-bottom: 0em;
+}
+
+h1 .built-by {
+  display: block  ;
+  font-size: 0.6em;
+}
+h1 .built-by a {
+  font-weight: bold;
+}
+
+footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: #812A80;
+  color: white;
+  font-weight: 300;
+  text-align: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-size: 0.8em;
+  height: 3em;
+}
+
+.about-panel {
+  background-color: #812A80;
+  color: white;
+/*  position: fixed;
+  overflow: scroll;
+  top: 5.5em; /* header height: 3em + 2em * 0.7 */
+  bottom: 6em; /* footer height: 3em + 2em * 0.8 */
+  left: 2em;
+  right: 2em;
+  padding: 2em;
+*/
+}
+
+.about-panel div {
+  margin-bottom: 2em;
+}
+
+.about-panel .help {
+  font-size: 0.9em;
+}
+
+.about-panel .licence {
+  border-top: 1px solid #c29fd1;
+  padding-top: 2em;
+  font-size: 0.6em;
+}
+
+.about-panel .licence a {
+  color: #c29fd1;
+}
+
+.about-panel .licence a:hover {
+  color: white;
+}
+
+footer .hide-ui {
+  font-size: 0.8em;
+  float: right;
+  margin-right: 1.25em;
+}
+
+footer .share-button {
+  font-size: 0.8em;
+  float: left;
+  margin-left: 1.25em;
+}
+
+footer .about-button {
+  font-size: 0.8em;
+  float: left;
+  margin-left: 1.25em;
+}
+
+#support {
+  background-color: #812A80;
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+}
+
+
+/* Share Modal */
+
+.share-panel h2 {
+  margin-top: 0em;
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+.share-panel input[name=petition-link] {
+  font-size: 1em;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+/* Map Controls */
+
+#controls {
+  position: absolute;
+  color: black;
+  font-weight: 400;
+  background-color: #f6f6f6;
+  opacity: 0.75;
+  bottom: 1em;
+  right: 1em;
+  width: 11em;
+  padding: 0.5em;
+  font-size: 0.6em;
+}
+
+@media (max-height: 480px) {
+  #controls {
+    font-size: 0.3em;
+  }
+}
+
+@media (max-height: 360px) {
+  #controls {
+    display: none;
+  }
+}
+
+#controls .controls-col {
+  display: inline-block;
+  width: 2em;
+  height: 6em;
+  float: left;
+  margin-right: 1em;
+}
+#controls .controls-col:last-of-type {
+  margin-right: 0em;
+}
+#controls .controls-col .flat_button {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+#controls .controls-col .flat_button.row-span {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  padding: 0.5em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+#controls .controls-row {
+  clear: both;
+  overflow: auto;
+  margin-bottom: 0.5em;
+}
+#controls .controls-row:last-of-type {
+  margin-bottom: 0em;
+}
+#controls .controls-row label.inline {
+  display: block;
+}
+#controls .controls-row .flat_button.row {
+  width: 11em;
+}
